@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/detail.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="section-padding">
+        <div class="container-narrow">
+            <div class="mb-4">
+                <a href="{% url "polls:index" 'all' %}" class="back-link mb-2 text-light flex-center">
+                    ← Back to Polls
+                </a>
+                <span class="category-label">{{ question.category.category_name }}</span>
+                <h1 class="page-title mt-1 mb-1">{{ question.question_text }}</h1>
+                <p class="text-light">
+                    Published on {{ question.pub_date|date:"F j, Y" }} by <a href="{% url "user:profile" question.creator.id %}">{{ question.creator.username }}</a>
+                    {% if question.was_published_recently %}
+                        <span class="badge-recent">• Recently published</span>
+                    {% endif %}
+                </p>
+
+                </div>
+
+            <div class="card voting-card">
+                <form method="post" action="{% url "polls:vote" question.category.slug question.id %}">
+                    {% csrf_token %}
+
+                    {% if error_message %}
+                        <div class="error-alert">
+                            {{ error_message }}
+                        </div>
+                    {% endif %}
+
+                    <div class="voting-options">
+                        {% for choice in question.choice_set.all %}
+                            <label class="voting-option">
+                                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                                <span>{{ choice.choice_text }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                    <div class="flex-center gap-1">
+                        <button type="submit" class="btn btn-primary btn-full btn-vote">Cast Your Vote</button>
+                        <p>{{ question.views_count }}</p>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="about-section mt-4 pt-3">
+                <h3 class="mb-2">About this Poll</h3>
+                <p class="text-light about-text">
+                    This poll is part of the <strong>{{ question.category.category_name }}</strong> category.
+                    Your vote is anonymous and helps us understand the community's perspective on this topic.
+                    Once you cast your vote, you'll be redirected to the results page where you can see how others have voted.
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

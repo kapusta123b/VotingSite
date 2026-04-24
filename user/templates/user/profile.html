@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/profile.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="section-padding">
+        <div class="container-narrow">
+            <div class="card profile-card fade-in">
+                <div class="profile-header-main">
+                    <div class="profile-avatar">
+                        {{ user.username|first|upper }}
+                    </div>
+                    <div>
+                        <h1 class="mb-1">{{ profile_user.get_full_name|default:profile_user.username }}</h1>
+                    </div>
+                </div>
+
+                <div class="profile-details-grid">
+                    <div class="profile-info-column">
+                        <h3 class="mb-2">Account Information</h3>
+                        <div class="mb-3">
+                            <label class="info-label">Username</label>
+                            <span class="info-value">{{ profile_user.username }}</span>
+                        </div>
+                        <div class="mb-3">
+                            {% if user == profile_user %}
+                            <label class="info-label">Email</label>
+                            <span class="info-value">{{ profile_user.email }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="profile-info-column">
+                        <h3 class="mb-2">Activity Summary</h3>
+                        <div class="mb-3">
+                            <label class="info-label">Vote count</label>
+                            <span class="info-value">{{ profile_user.votes }}</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="info-label">Register date</label>
+                            <span class="info-value">{{ profile_user.date_joined|date:"F d Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 profile-actions">
+                    {% if user == profile_user %}
+                    <a href="#" class="btn btn-outline btn-sm">Edit Profile</a>
+                    <a href="{% url "user:logout" %}" class="btn btn-outline btn-sm btn-logout">Log Out</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="user-polls-section fade-in">
+                <h2 class="section-title">Your Polls</h2>
+                <div class="user-polls-list">
+                    <div class="user-poll-item">
+                        <a href="#" class="user-poll-link">
+                            Example Poll Title
+                        </a>
+                        <span class="user-poll-date">Published on April 21, 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

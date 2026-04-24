@@ -1,0 +1,70 @@
+@import 'variables';
+
+.back-link {
+    font-weight: 600;
+    color: $text-light;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    &:hover { color: $primary; transform: translateX(-4px); }
+}
+
+.results-card {
+    background: $card-bg;
+    border: 1px solid $border;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $border;
+        padding-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
+
+        h3 { font-size: 1.25rem; font-weight: 700; margin: 0; }
+        .total-votes-text { font-size: 0.9rem; color: $text-light; margin: 0; font-weight: 500; }
+    }
+
+    @media (max-width: $tablet) {
+        padding: 1.5rem;
+    }
+}
+
+.result-item {
+    margin-bottom: 1.25rem;
+    &:last-child { margin-bottom: 0; }
+
+    .result-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+
+        .result-count {
+            color: $text-light;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    }
+
+    .progress-bar {
+        background: #f3f4f6;
+        border-radius: 9999px;
+        height: 0.625rem;
+        overflow: hidden;
+
+        .progress-fill {
+            background: linear-gradient(to right, $primary, #818cf8);
+            height: 100%;
+            width: 0;
+            border-radius: 9999px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    }
+}

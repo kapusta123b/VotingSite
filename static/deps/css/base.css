@@ -1,0 +1,212 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; }
+
+main {
+  flex: 1; }
+
+a {
+  text-decoration: none;
+  transition: all 0.2s ease; }
+
+ul {
+  list-style: none; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem; }
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem; }
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem; } }
+.section-padding {
+  padding: 5rem 0; }
+  @media (max-width: 768px) {
+    .section-padding {
+      padding: 3rem 0; } }
+.hero {
+  align-items: center;
+  height: 100vh;
+  display: flex;
+  text-align: center;
+  background: radial-gradient(circle at center, #ffffff 0%, #f9fafb 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.05em;
+    color: #111827;
+    line-height: 1.1; }
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.75rem; } }
+  .hero p {
+    font-size: 1.35rem;
+    color: #6b7280;
+    max-width: 750px;
+    margin: 0 auto 3rem;
+    line-height: 1.6; }
+    @media (max-width: 768px) {
+      .hero p {
+        font-size: 1.15rem; } }
+nav {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000; }
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+  nav .logo h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #4f46e5;
+    letter-spacing: -0.025em; }
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center; }
+    nav ul li a, nav ul .nav-link-btn {
+      font-weight: 500;
+      color: #6b7280;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0;
+      transition: all 0.2s ease; }
+      nav ul li a:hover, nav ul .nav-link-btn:hover {
+        color: #4f46e5; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  line-height: 1; }
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    height: 2.25rem;
+    font-size: 0.875rem; }
+  .btn-primary {
+    background-color: #4f46e5;
+    color: #ffffff; }
+    .btn-primary:hover {
+      background-color: #4338ca; }
+  .btn-outline {
+    border-color: #e5e7eb;
+    background-color: #ffffff;
+    color: #111827; }
+    .btn-outline:hover {
+      background-color: #f9fafb;
+      border-color: #c8ccd5; }
+
+footer {
+  background: #ffffff;
+  color: #ffffff;
+  padding: 4rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  margin-top: auto; }
+  footer h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #4f46e5;
+    margin-bottom: 1rem; }
+  footer p {
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 500px;
+    margin: 0 auto; }
+  footer .copyright {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.4); }
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px); }
+  to {
+    opacity: 1;
+    transform: translateY(0); } }
+
+.error-alert {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem; }
+  .error-alert ul {
+    list-style: disc;
+    margin-left: 1.25rem; }
+    .error-alert ul li {
+      margin-bottom: 0.25rem; }
+      .error-alert ul li:last-child {
+        margin-bottom: 0; }
+
+.mb-2 {
+  margin-bottom: 0.5rem; }
+
+.mb-4 {
+  margin-bottom: 2rem; }
+
+.mt-4 {
+  margin-top: 2rem; }
+
+.text-light {
+  color: #6b7280; }
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem; }
+
+.page-subtitle {
+  font-size: 1.125rem; }
+
+.d-flex {
+  display: flex; }
+
+.align-items-center {
+  align-items: center; }
+
+.justify-content-center {
+  justify-content: center; }
+
+.gap-1 {
+  gap: 0.5rem; }
+
+.gap-2 {
+  gap: 1rem; }
+
+.gap-3 {
+  gap: 1.5rem; }

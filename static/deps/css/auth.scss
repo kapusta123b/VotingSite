@@ -1,0 +1,65 @@
+@import 'variables';
+
+.auth-container {
+    max-width: 450px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    
+    .auth-card {
+        background: $white;
+        padding: 2.5rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        border: 1px solid $border;
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+            p { color: $text-light; }
+        }
+
+        @media (max-width: $tablet) {
+            padding: 1.5rem;
+        }
+    }
+}
+
+.form-field {
+    margin-bottom: 1.5rem;
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid $border;
+        border-radius: 0.625rem;
+        font-size: 1rem;
+        transition: all $transition-speed;
+
+        &:focus {
+            outline: none;
+            border-color: $primary;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+    }
+}
+
+.form-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: $text-light;
+
+    a {
+        color: $primary;
+        font-weight: 600;
+        &:hover { color: $primary-hover; }
+    }
+}

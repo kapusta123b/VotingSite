@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% load poll_extras %}
+
+{% block title %}Create New Poll | Votely{% endblock %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/create.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="section-padding">
+        <div class="container">
+            <div class="mb-4">
+                <h1 class="page-title">Create New Poll</h1>
+                <p class="page-subtitle text-light">Fill out the form below to start a new discussion.</p>
+            </div>
+
+            <div class="create-poll-container">
+                <form action={% url "polls:create" %} method="post" id="create-poll-form">
+                    {% csrf_token %}
+                    {% include "includes/form_errors.html" %}
+                    <div class="form-group">
+                        <label for="category" class="form-label">Category</label>
+                        <select id="category" name="category" class="form-select">
+                            <option value="" disabled selected>Select a category</option>
+                            {% tag_categories as categories %}
+                            {% for category in categories %}
+                                {% if category.slug != 'all' %}
+                                    <option value="{{ category.id }}">{{ category.category_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="question" class="form-label">Question Text</label>
+                        <input
+                            value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+                            type="text"
+                            id="question"
+                            name="question_text" class="form-input" placeholder="What would you like to ask?"
+                            required    
+                        >
+                    </div>
+
+                    <div class="choices-section">
+                        <div class="choices-header">
+                            <h3 class="choices-title mb-0">Poll Choices</h3>
+                            <div class="d-flex align-items-center gap-2">
+                                <span id="choice-counter" class="choice-counter">2 / 20</span>
+                                <button type="button" id="add-choice-btn" class="btn-add-choice">+</button>
+                            </div>
+                        </div>
+
+                        <div id="choices-list" class="choices-list">
+                            <div class="choice-item">
+                                <input required type="text" name="choice" class="form-input" placeholder="Choice 1">
+                                <button type="button" class="btn-remove-choice" style="visibility: hidden;">✕</button>
+                            </div>
+                            <div class="choice-item">
+                                <input required type="text" name="choice" class="form-input" placeholder="Choice 2">
+                                <button type="button" class="btn-remove-choice" style="visibility: hidden;">✕</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-publish">Publish Poll</button>
+                        <a href="{% url 'polls:index' 'all' %}" class="btn btn-outline btn-cancel">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    {% block js %}
+        <script src="{% static "deps/js/create.js" %}"></script>
+    {% endblock %}
+{% endblock %}

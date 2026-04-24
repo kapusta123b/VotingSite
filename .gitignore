@@ -1,0 +1,17 @@
+# environmets
+.venv
+venv
+env
+
+#cache
+__pycache__/
+
+#migration
+migrations/
+
+
+#static
+staticfiles/
+
+#db
+*.sqlite3

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Votely | Decisions Made Together{% endblock %}</title>
+        {% load sass_tags %}
+        <link rel="stylesheet" href="{% sass_src "deps/css/base.scss" %}">
+        {% block css %}{% endblock %}
+    </head>
+    <body>
+        <nav>
+            <div class="container">
+                <a href="{% url "main:index" %}" class="logo"><h1>VOTELY</h1></a>
+                <ul>
+                    <li><a href="{% url "main:index" %}">Home</a></li>
+                    <li><a href="{% url "polls:index" 'all' %}">Polls</a></li>
+                    <li><a href="{% url "main:about" %}">About</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url "user:profile" user.id %}">Profile</a></li>
+                        <li>
+                            <form action="{% url 'user:logout' %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link-btn">
+                                    Log out
+                                </button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url "user:login" %}">Log-in</a></li>
+                        <li><a href="{% url "user:register" %}" class="btn btn-primary btn-sm">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <h2>VOTELY</h2>
+                    <p>Your platform for secure, transparent and easy voting. Empowering communities one vote at a time.</p>
+                    <div class="copyright">&copy; 2026 Votely Inc. All rights reserved.</div>
+                </div>
+            </footer>
+        {% endblock footer %}
+
+        <script src="{% static "deps/js/main.js" %}"></script>
+        {% block js %}{% endblock %}
+    </body>
+</html>

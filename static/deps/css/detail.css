@@ -1,0 +1,57 @@
+.voting-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+  .voting-card .voting-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0; }
+    .voting-card .voting-options .voting-option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 1.25rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s; }
+      .voting-card .voting-options .voting-option:hover {
+        border-color: #4f46e5;
+        background-color: #f5f3ff; }
+      .voting-card .voting-options .voting-option input[type="radio"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        accent-color: #4f46e5;
+        margin-right: 1rem; }
+      .voting-card .voting-options .voting-option span {
+        font-size: 1.125rem;
+        font-weight: 500; }
+  @media (max-width: 768px) {
+    .voting-card {
+      padding: 1.5rem; } }
+.badge-recent {
+  color: #10b981;
+  font-weight: 600;
+  margin-left: 0.5rem; }
+
+.about-section {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 2.5rem;
+  padding-top: 2rem; }
+  .about-section h3 {
+    margin-bottom: 1rem; }
+  .about-section .about-text {
+    line-height: 1.6;
+    color: #6b7280; }
+
+.error-alert {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500; }

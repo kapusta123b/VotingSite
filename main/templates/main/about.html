@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/about.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="page-title">About Votely</h1>
+            <p class="page-subtitle">Our mission is to provide a transparent, secure, and accessible platform for everyone to voice their opinions and participate in collective decision-making.</p>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container-narrow">
+            <div class="mb-4">
+                <h2 class="mb-2">Our Story</h2>
+                <p class="text-light mb-3">Votely started as a simple project to help small communities make better decisions together. We realized that existing tools were either too complex or lacked the transparency needed for trust. Today, we're building the future of digital democracy.</p>
+                <p class="text-light">We believe that every voice matters, and technology should be used to amplify those voices, not drown them out. Our platform is designed with security and anonymity at its core, ensuring that you can vote with confidence.</p>
+            </div>
+
+            <div class="about-grid">
+                <div>
+                    <h3 class="mb-2">Our Values</h3>
+                    <ul class="values-list">
+                        <li class="mb-1"><strong>Transparency:</strong> All results are verified and openly accessible.</li>
+                        <li class="mb-1"><strong>Security:</strong> We use industry-standard encryption to protect your data.</li>
+                        <li class="mb-1"><strong>Inclusivity:</strong> Accessible to everyone, everywhere, on any device.</li>
+                        <li class="mb-1"><strong>Simplicity:</strong> No complex setups—just create, share, and vote.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-2">The Technology</h3>
+                    <p class="text-light">Built using modern web technologies, Votely ensures fast performance and a seamless user experience. Our backend is powered by secure systems that handle thousands of votes concurrently while maintaining data integrity.</p>
+                </div>
+            </div>
+
+            <div class="card cta-card mt-4">
+                <h2 class="mb-2">Ready to make your voice heard?</h2>
+                <p class="mb-3">Join Votely today and start participating in the conversations that matter most to you.</p>
+                <a href="{% url "user:register" %}" class="btn btn-cta">Get Started Now</a>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

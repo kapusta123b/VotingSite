@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load poll_extras %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/results.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <section class="section-padding">
+        <div class="container-narrow">
+            <div class="mb-4">
+                <a href="{% url "polls:index" 'all' %}" class="back-link mb-2 text-light flex-center">
+                    ← Back to Polls
+                </a>
+                <span class="category-label">{{ question.category.category_name }}</span>
+                <h1 class="page-title mt-1 mb-1">Results</h1>
+                <h2 class="question-subtitle text-light">{{ question.question_text }}</h2>
+            </div>
+
+            <div class="card results-card">
+                <div class="results-header mb-4">
+                    <div>
+                        <h3 class="results-stats-title">Live Statistics</h3>
+                        <p class="text-light total-votes-text">Total votes: {{ total_votes }}</p>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    {% for choice in question.choice_set.all %}
+                        <div class="result-item">
+                            <div class="result-info">
+                                <span class="result-text">{{ choice.choice_text }}</span>
+                                <span class="result-count">
+                                    {{ choice.votes }} vote{{ choice.votes|pluralize }}
+                                    {% if total_votes > 0 %}
+                                        ({{ choice.votes|multiply:100|divide:total_votes|floatformat:1 }}%)
+                                    {% else %}
+                                        (0%)
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill"
+                                     data-width="{% if total_votes > 0 %}{{ choice.votes|multiply:100|divide:total_votes }}{% else %}0{% endif %}%">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-2 flex-center gap-1">
+                    <a href="{% url "polls:index" 'all' %}" class="btn btn-outline btn-full">Browse More Polls</a>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <p class="text-light">Results are updated in real-time. Share this poll with others!</p>
+                <div class="mt-2 flex-center gap-1">
+                    <button class="btn btn-outline btn-sm">Copy Link</button>
+                    <button class="btn btn-outline btn-sm">Share on Twitter</button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fills = document.querySelectorAll('.progress-fill');
+            setTimeout(() => {
+                fills.forEach(fill => {
+                    fill.style.width = fill.getAttribute('data-width');
+                });
+            }, 100);
+        });
+    </script>
+{% endblock %}
