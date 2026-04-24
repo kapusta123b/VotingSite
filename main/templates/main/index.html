@@ -61,5 +61,17 @@
 
     
 
+    {% if not request.user.is_authenticated %}
+    <section class="cta-section section-padding">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Ready to Start Your Own Poll?</h2>
+                <p>Join our community to create polls, track real-time results, and share with the world.</p>
+                <a href="{% url 'user:register' %}" class="btn btn-primary">Register in 30 seconds</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
 {% endblock content %}
 

@@ -240,3 +240,40 @@
         }
     }
 }
+
+.cta-section {
+    .cta-card {
+        background: linear-gradient(135deg, $primary 0%, darken($primary, 15%) 100%);
+        border-radius: 2rem;
+        padding: 4rem 2rem;
+        text-align: center;
+        color: $white;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .btn-primary {
+            background: $white;
+            color: $primary;
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            
+            &:hover {
+                background: #f8f9fa;
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
+import datetime
 import os
 
 from pathlib import Path
@@ -147,3 +148,5 @@ AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = 'user:login'
 
 LOGOUT_REDIRECT_URL = 'main:index'
+
+SESSION_COOKIE_AGE = datetime.timedelta(weeks=4)

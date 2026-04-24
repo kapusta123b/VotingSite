@@ -4,7 +4,8 @@ from django.utils import timezone
 
 from django.shortcuts import get_object_or_404, render, redirect
 
-from django.views.generic import DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from polls.forms import CreatePollForm
 from polls.models import Questions, Choice
@@ -36,53 +37,56 @@ class MainPollsView(ListView):
         if category_slug and category_slug != 'all':
             return queryset.filter(category__slug=category_slug)
         return queryset
-        
+   
 
-@login_required
-def create_poll(request):
-    if request.method == 'POST':
-        form = CreatePollForm(data=request.POST)
 
-        if form.is_valid():
-            question = form.save(commit=False)
-            question.creator = request.user
-            question.pub_date = timezone.now()
-            question.save()
+class CreatePollView(LoginRequiredMixin, CreateView):
+    form_class = CreatePollForm
+    template_name = 'polls/create_poll.html'
 
-            choices_list = request.POST.getlist('choice')
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        form.instance.pub_date = timezone.now()
 
-            for choice_text in choices_list:
-                if choice_text.strip():
-                    Choice.objects.create(question=question, choice_text=choice_text)
+        response = super().form_valid(form)
 
-            return redirect('polls:index', 'all')
+        choices_list = self.request.POST.getlist('choice')
 
-    else:
-        form = CreatePollForm()
+        for choice_text in choices_list:
+            if choice_text.strip():
+                Choice.objects.create(question=self.object, choice_text=choice_text)
 
-    return render(request, 'polls/create_poll.html', context={'form': form})
+        return response
+
+
 
 class DetailPollView(DetailView):
     template_name = 'polls/detail.html'
     context_object_name = 'question'
+    model = Questions
+    pk_url_kwarg = 'question_id'
 
     def get_object(self, queryset=None):
-        question_id = self.kwargs.get('question_id')
+        obj = super().get_object(queryset)
+        
+        obj.views_count += 1
+        obj.save()
 
-        question = get_object_or_404(Questions, pk=question_id)
-        question.views_count += 1
-        question.save()
+        return obj
 
-        return question
 
-def results(request, question_id, category_slug=None):
-    question = get_object_or_404(Questions, pk=question_id)
 
-    total_votes = question.choice_set.aggregate(Sum('votes'))['votes__sum'] or 0
-    return render(request, 'polls/results.html', {
-        'question': question,
-        'total_votes': total_votes
-    })
+class PollResult(DetailView):
+    model = Questions
+    template_name = 'polls/result.html'
+    pk_url_kwarg = 'question_id'
+    context_object_name = 'question'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_votes"] = self.object.choice_set.aggregate(Sum('votes'))['votes__sum'] or 0
+        return context
+
 
 
 @login_required

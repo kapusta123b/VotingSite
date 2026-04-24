@@ -200,3 +200,29 @@
       .paginate ul li.disable a {
         background: #f3f4f6;
         color: #6b7280; }
+
+.cta-section .cta-card {
+  background: linear-gradient(135deg, #4f46e5 0%, #251bc3 100%);
+  border-radius: 2rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+  .cta-section .cta-card h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem; }
+  .cta-section .cta-card p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 2.5rem; }
+  .cta-section .cta-card .btn-primary {
+    background: #ffffff;
+    color: #4f46e5;
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem; }
+    .cta-section .cta-card .btn-primary:hover {
+      background: #f8f9fa;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
