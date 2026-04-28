@@ -41,7 +41,7 @@
                             type="text"
                             id="question"
                             name="question_text" class="form-input" placeholder="What would you like to ask?"
-                            required    
+                            required
                         >
                     </div>
 
@@ -74,8 +74,8 @@
             </div>
         </div>
     </section>
+{% endblock content %}
 
-    {% block js %}
-        <script src="{% static "deps/js/create.js" %}"></script>
-    {% endblock %}
+{% block js %}
+    <script src="{% static "deps/js/create.js" %}"></script>
 {% endblock %}

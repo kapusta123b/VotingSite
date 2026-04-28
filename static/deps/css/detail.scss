@@ -47,10 +47,64 @@
     }
 }
 
+.poll-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9375rem;
+    margin-top: 0.5rem;
+
+    .meta-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .meta-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    @media (max-width: $tablet) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+
+.view-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: $text-light;
+    padding: 0.25rem 0.625rem;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+
+    svg {
+        opacity: 0.6;
+    }
+}
+
 .badge-recent {
     color: $success;
-    font-weight: 600;
-    margin-left: 0.5rem;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    display: flex;
+    align-items: center;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: $success;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
 }
 
 .about-section {

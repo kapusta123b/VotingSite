@@ -23,17 +23,53 @@
                 {% endfor %}
             </div>
 
+            <div class="controls-row mt-3">
+                <div class="filter-group">
+                    <form action="{% url "polls:index" category_slug %}" method='get'>
+                        {% if request.GET.sort %}
+                            <input type="hidden" name='sort' value='{{ request.GET.sort }}'>
+                        {% endif %}
+                        <button name="filter" value="community" class="filter-btn {% if request.GET.filter != 'user' %}active{% endif %}">Community Polls</button>
+                        <button name="filter" value="user" class="filter-btn {% if request.GET.filter == 'user' %}active{% endif %}">My Polls</button>
+                    </form>
+                </div>
+
+                <div class="sort-group">
+                    <form class="sort-form" action='{% url "polls:index" category_slug %}'  method='get'>
+                        {% if request.GET.filter %}
+                            <input type="hidden" name='filter' value='{{ request.GET.filter }}'>
+                        {% endif %}
+                        <select name="sort" class="sort-select" onchange="this.form.submit()">
+                            <option value="-pub_date" {% if request.GET.sort == '-pub_date' %}selected{% endif %}>Most Recent</option>
+                            <option value="pub_date" {% if request.GET.sort == 'pub_date' %}selected{% endif %}>Oldest First</option>
+                            <option value="-views_count" {% if request.GET.sort == '-views_count' %}selected{% endif %}>Most Viewed</option>
+                            <option value="views_count" {% if request.GET.sort == 'views_count' %}selected{% endif %}>Least Viewed</option>
+                            <option value="random" {% if request.GET.sort == 'random' %}selected{% endif %}>Randomly</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
             <div class="grid mt-2">
                 {% for question in questions %}
                     <div class="card">
                         <div class="card-header-absolute">
-                            <span class="category-label">{{ question.category.category_name }}</span>
-                            {% if question.was_published_recently %}
-                                <span class="badge badge-new">NEW</span>
-                            {% endif %}
+                            <div class="d-flex align-items-center gap-1">
+                                <span class="category-label">{{ question.category.category_name }}</span>
+                                {% if question.was_published_recently %}
+                                    <span class="badge badge-new">NEW</span>
+                                {% endif %}
+                            </div>
+                            <span class="view-count">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                                {{ question.views_count }}
+                            </span>
                         </div>
                         <div class="card-content-wrapper">
-                            <h3 class="card-title">{{ question.question_text }}</h3>
+                            <h3 class="card-title"><a class='card-title' href="{% url "polls:detail" question.category.slug question.id %}">{{ question.question_text }}</a></h3>
                             <p class="text-light-sm">Created {{ question.pub_date|timesince }} ago</p>
                         </div>
 
@@ -50,7 +86,7 @@
                     </div>
                 {% empty %}
                     <div class="empty-state">
-                        <p class="empty-state-text">No polls found. Be the first to create one!</p>
+                        <p class="empty-state-text">No polls found. <a href="{% url "polls:create" %}">Create one!</a></p>
                     </div>
                 {% endfor %}
             </div>
@@ -59,21 +95,21 @@
             <div class='paginate'>
 
                 <ul>
-                    
+
                     <li class='{% if not page_obj.has_previous %} disable {% endif %}'>
                         <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }} {% else %}#{% endif %}" >&lt;</a>
                     </li>
 
                     {% for p in paginator.page_range %}
                         {% if p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-                        <li>
-                            <a href="?page={{ p }}" class='{% if p == page_obj.number%}active{% endif %}'>
-                                {{ p }}
-                            </a>
-                        </li>
+                            <li>
+                                <a href="?page={{ p }}" class='{% if p == page_obj.number%}active{% endif %}'>
+                                    {{ p }}
+                                </a>
+                            </li>
                         {% endif %}
                     {% endfor %}
-                    
+
                     <li class='{% if not page_obj.has_next %} disable {% endif %}'>
                         <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }} {% else %}#{% endif %}" >&gt</a>
                     </li>

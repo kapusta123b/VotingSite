@@ -72,6 +72,24 @@
         }
     }
 
+    .form-control {
+        width: 100%;
+        padding: 0.625rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        color: $white;
+        font-size: 1rem;
+        margin-top: 0.25rem;
+        transition: all $transition-speed ease;
+
+        &:focus {
+            outline: none;
+            border-color: $primary;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+
     .profile-actions {
         margin-top: 3rem;
         display: flex;

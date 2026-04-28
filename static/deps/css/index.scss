@@ -56,6 +56,85 @@
     }
 }
 
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+
+    @media (max-width: $tablet) {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+}
+
+.filter-group {
+    display: flex;
+    gap: 0.25rem;
+    background: #f3f4f6;
+    padding: 0.35rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+
+    .filter-btn {
+        padding: 0.625rem 1.5rem;
+        border-radius: 0.65rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: $text-light;
+        transition: all 0.3s $transition-bounce;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+
+        &:hover {
+            color: $text;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        &.active {
+            background: $white;
+            color: $primary;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(0);
+            
+            &:hover {
+                transform: none;
+            }
+        }
+    }
+}
+
+.sort-group {
+    .sort-select {
+        padding: 0.625rem 2.5rem 0.625rem 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid $border;
+        background-color: $white;
+        font-weight: 500;
+        color: $text;
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C2.185 5.355 2.401 5 2.816 5h10.368c.415 0 .631.355.365.658l-4.796 5.482a.5.5 0 0 1-.74 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        transition: all $transition-speed;
+
+        &:hover {
+            border-color: $primary;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $primary;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+    }
+}
+
 .grid {
     display: grid;
     gap: 2.5rem;
@@ -162,6 +241,19 @@
     &-new {
         background-color: #ecfdf5;
         color: #059669;
+    }
+}
+
+.view-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.8125rem;
+    font-weight: 600;
+
+    svg {
+        opacity: 0.6;
     }
 }
 

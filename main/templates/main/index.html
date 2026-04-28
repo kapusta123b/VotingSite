@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+
     <section class="hero">
         <div class="container">
             <h1 class="fade-in">Shape the Future with Your Vote</h1>
@@ -23,7 +24,7 @@
                 <h1 class="page-title">Recent Polls</h1>
                 <a href="{% url 'polls:create' %}" class="btn btn-primary btn-sm">+ Create New Poll</a>
             </div>
-            
+
             <div class="grid">
                 {% for poll in recent_polls %}
                     <div class="card">
@@ -59,19 +60,20 @@
         </div>
     </section>
 
-    
+
 
     {% if not request.user.is_authenticated %}
-    <section class="cta-section section-padding">
-        <div class="container">
-            <div class="cta-card">
-                <h2>Ready to Start Your Own Poll?</h2>
-                <p>Join our community to create polls, track real-time results, and share with the world.</p>
-                <a href="{% url 'user:register' %}" class="btn btn-primary">Register in 30 seconds</a>
+
+        <section class="cta-section section-padding">
+            <div class="container">
+                <div class="cta-card">
+                    <h2>Ready to Start Your Own Poll?</h2>
+                    <p>Join our community to create polls, track real-time results, and share with the world.</p>
+                    <a href="{% url 'user:register' %}" class="btn btn-primary">Register in 30 seconds</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
     {% endif %}
 
 {% endblock content %}
-

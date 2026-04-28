@@ -10,6 +10,55 @@
     color: #4f46e5;
     transform: translateX(-4px); }
 
+.poll-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9375rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb; }
+  .poll-meta .meta-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; }
+  .poll-meta .meta-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem; }
+  @media (max-width: 768px) {
+    .poll-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem; } }
+.view-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #6b7280;
+  padding: 0.25rem 0.625rem;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 8px; }
+  .view-count svg {
+    opacity: 0.6; }
+
+.badge-recent {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: flex;
+  align-items: center; }
+  .badge-recent::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #10b981;
+    border-radius: 50%;
+    margin-right: 0.5rem; }
+
 .results-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;

@@ -6,4 +6,4 @@ class CreatePollForm(forms.ModelForm):
 
     class Meta:
         model = Questions
-        fields = ['category', 'question_text']
+        fields = ["category", "question_text"]
