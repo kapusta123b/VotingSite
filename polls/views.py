@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 
+from django.urls import reverse
+
 from django.utils import timezone
 
 from django.shortcuts import get_object_or_404, render, redirect
 
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from polls.forms import CreatePollForm
@@ -35,12 +37,16 @@ class MainPollsView(ListView):
         queryset = Questions.objects.select_related("category")
 
         sort_by = self.request.GET.get("sort", "-pub_date")
-        queryset = queryset.order_by('?' if sort_by == 'random' else sort_by)
+        queryset = queryset.order_by("?" if sort_by == "random" else sort_by)
 
         filter_key = self.request.GET.get("filter")
         filters = {
-            'user': {'creator': self.request.user} if self.request.user.is_authenticated else {},
-            'community': {},
+            "user": (
+                {"creator": self.request.user}
+                if self.request.user.is_authenticated
+                else {}
+            ),
+            "community": {},
         }
         queryset = queryset.filter(**filters.get(filter_key, {}))
 
@@ -54,6 +60,12 @@ class MainPollsView(ListView):
 class CreatePollView(LoginRequiredMixin, CreateView):
     form_class = CreatePollForm
     template_name = "polls/create_poll.html"
+
+    def get_success_url(self):
+        return (
+            reverse("polls:index", kwargs={"category_slug": self.object.category.slug})
+            + "?filter=user&sort=-pub_date"
+        )
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -91,7 +103,7 @@ class DetailPollView(DetailView):
         return obj
 
 
-class PollResult(DetailView):
+class PollResultView(DetailView):
     model = Questions
     template_name = "polls/results.html"
     pk_url_kwarg = "question_id"
@@ -103,6 +115,10 @@ class PollResult(DetailView):
             self.object.choice_set.aggregate(Sum("votes"))["votes__sum"] or 0
         )
         return context
+    
+
+class DeletePollView(DeleteView):
+    pass
 
 
 @login_required

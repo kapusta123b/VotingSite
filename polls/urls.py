@@ -9,6 +9,6 @@ urlpatterns = [
     path('create/', views.CreatePollView.as_view(), name='create'),
     path('<slug:category_slug>/', views.MainPollsView.as_view(), name='index'),
     path('<slug:category_slug>/<int:question_id>/', views.DetailPollView.as_view(), name='detail'),
-    path('<slug:category_slug>/<int:question_id>/results/', views.PollResult.as_view(), name='results'),
+    path('<slug:category_slug>/<int:question_id>/results/', views.PollResultView.as_view(), name='results'),
     path('<slug:category_slug>/<int:question_id>/vote/', views.vote, name='vote'),
 ]

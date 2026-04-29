@@ -19,7 +19,10 @@
             <div class="categories-filter">
                 {% tag_categories as categories %}
                 {% for category in categories %}
-                    <a href="{% url "polls:index" category.slug %}" class="category-tag {% if category_slug == category.slug %}active{% endif %}">{{ category.category_name }}</a>
+                    <a href="{% url "polls:index" category.slug %}?{% url_replace %}" 
+                       class="category-tag {% if category_slug == category.slug %}active{% endif %}">
+                        {{ category.category_name }}
+                    </a>
                 {% endfor %}
             </div>
 
@@ -57,20 +60,49 @@
                             <div class="d-flex align-items-center gap-1">
                                 <span class="category-label">{{ question.category.category_name }}</span>
                                 {% if question.was_published_recently %}
+
                                     <span class="badge badge-new">NEW</span>
+                                
                                 {% endif %}
                             </div>
-                            <span class="view-count">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                </svg>
-                                {{ question.views_count }}
-                            </span>
+                            <div class="view-count-wrapper">
+                                <span class="view-count">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                    </svg>
+                                    {{ question.views_count }}
+                                </span>
+                                {% if question.creator.id == user.id %}
+                                    <button class="delete-btn-trigger" title="Delete Poll">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </button>
+                                {% endif %}
+                                
+                            </div>
                         </div>
                         <div class="card-content-wrapper">
-                            <h3 class="card-title"><a class='card-title' href="{% url "polls:detail" question.category.slug question.id %}">{{ question.question_text }}</a></h3>
-                            <p class="text-light-sm">Created {{ question.pub_date|timesince }} ago</p>
+                            <h3 class="card-title">
+                                <a class='card-title-link' href="{% url "polls:detail" question.category.slug question.id %}">{{ question.question_text }}</a>
+                            </h3>
+                            <div class="card-meta">
+                                <p class="text-light-sm">Created {{ question.pub_date|timesince }} ago</p>
+                                <a href="{% url "user:profile" question.creator.id %}" class="creator-link">Created by {{ question.creator.username }}</a>
+                            </div>
+                        </div>
+
+                        <div class="delete-confirmation-overlay">
+                            <div class="delete-confirm-box">
+                                <h4>Delete this poll?</h4>
+                                <p>Please type <strong>{{ question.question_text }}</strong> to confirm.</p>
+                                <input type="text" class="confirm-input" placeholder="Type question text here...">
+                                <div class="confirm-actions">
+                                    <button class="btn-cancel">Cancel</button>
+                                    <button class="btn-delete-confirm" disabled>Delete</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-footer">
@@ -97,13 +129,13 @@
                 <ul>
 
                     <li class='{% if not page_obj.has_previous %} disable {% endif %}'>
-                        <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }} {% else %}#{% endif %}" >&lt;</a>
+                        <a href="{% if page_obj.has_previous %}?{% url_replace page=page_obj.previous_page_number %}{% else %}#{% endif %}" >&lt;</a>
                     </li>
 
                     {% for p in paginator.page_range %}
                         {% if p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
                             <li>
-                                <a href="?page={{ p }}" class='{% if p == page_obj.number%}active{% endif %}'>
+                                <a href="?{% url_replace page=p %}" class='{% if p == page_obj.number%}active{% endif %}'>
                                     {{ p }}
                                 </a>
                             </li>
@@ -111,7 +143,7 @@
                     {% endfor %}
 
                     <li class='{% if not page_obj.has_next %} disable {% endif %}'>
-                        <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }} {% else %}#{% endif %}" >&gt</a>
+                        <a href="{% if page_obj.has_next %}?{% url_replace page=page_obj.next_page_number %}{% else %}#{% endif %}" >&gt;</a>
                     </li>
 
                 </ul>

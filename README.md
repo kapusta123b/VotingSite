@@ -10,5 +10,5 @@ A Django-based voting platform allowing users to create polls, vote, and track r
 
 ## Tech Stack
 - **Backend**: Django 6.x
-- **Frontend**: SASS / CSS, JavaScript
+- **Frontend**: SASS, JavaScript
 - **Database**: SQLite
