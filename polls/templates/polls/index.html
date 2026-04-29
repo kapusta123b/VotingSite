@@ -8,22 +8,29 @@
 {% endblock %}
 
 {% block content %}
+
     <section class="section-padding">
         <div class="container">
+
             <div class="page-header">
                 <h1 class="page-title">Explore Polls</h1>
                 <a href="{% url 'polls:create' %}" class="btn btn-primary btn-sm">+ Create New Poll</a>
             </div>
+
             <p class="page-subtitle">Discover what the world is thinking. Vote on topics that matter to you.</p>
 
             <div class="categories-filter">
+
                 {% tag_categories as categories %}
                 {% for category in categories %}
-                    <a href="{% url "polls:index" category.slug %}?{% url_replace %}" 
+
+                    <a href="{% url "polls:index" category.slug %}?{% url_replace %}"
                        class="category-tag {% if category_slug == category.slug %}active{% endif %}">
                         {{ category.category_name }}
                     </a>
+
                 {% endfor %}
+
             </div>
 
             <div class="controls-row mt-3">
@@ -40,14 +47,18 @@
                 <div class="sort-group">
                     <form class="sort-form" action='{% url "polls:index" category_slug %}'  method='get'>
                         {% if request.GET.filter %}
+
                             <input type="hidden" name='filter' value='{{ request.GET.filter }}'>
+
                         {% endif %}
                         <select name="sort" class="sort-select" onchange="this.form.submit()">
+
                             <option value="-pub_date" {% if request.GET.sort == '-pub_date' %}selected{% endif %}>Most Recent</option>
                             <option value="pub_date" {% if request.GET.sort == 'pub_date' %}selected{% endif %}>Oldest First</option>
                             <option value="-views_count" {% if request.GET.sort == '-views_count' %}selected{% endif %}>Most Viewed</option>
                             <option value="views_count" {% if request.GET.sort == 'views_count' %}selected{% endif %}>Least Viewed</option>
                             <option value="random" {% if request.GET.sort == 'random' %}selected{% endif %}>Randomly</option>
+
                         </select>
                     </form>
                 </div>
@@ -55,7 +66,9 @@
 
             <div class="grid mt-2">
                 {% for question in questions %}
+
                     <div class="card">
+
                         <div class="card-header-absolute">
                             <div class="d-flex align-items-center gap-1">
                                 <span class="category-label">{{ question.category.category_name }}</span>
@@ -80,17 +93,26 @@
                                         </svg>
                                     </button>
                                 {% endif %}
-                                
+
                             </div>
                         </div>
+
                         <div class="card-content-wrapper">
+
                             <h3 class="card-title">
                                 <a class='card-title-link' href="{% url "polls:detail" question.category.slug question.id %}">{{ question.question_text }}</a>
                             </h3>
+
                             <div class="card-meta">
                                 <p class="text-light-sm">Created {{ question.pub_date|timesince }} ago</p>
-                                <a href="{% url "user:profile" question.creator.id %}" class="creator-link">Created by {{ question.creator.username }}</a>
+                                <div class="meta-bottom">
+                                    {% if question.creator.id == user.id %}
+                                        <span class="badge badge-your">YOUR</span>
+                                    {% endif %}
+                                    <a href="{% url "user:profile" question.creator.id %}" class="creator-link">Created by {{ question.creator.username }}</a>
+                                </div>
                             </div>
+                            
                         </div>
 
                         <div class="delete-confirmation-overlay">
@@ -116,39 +138,43 @@
                             </div>
                         </div>
                     </div>
+
                 {% empty %}
+
                     <div class="empty-state">
                         <p class="empty-state-text">No polls found. <a href="{% url "polls:create" %}">Create one!</a></p>
                     </div>
+
                 {% endfor %}
             </div>
         </div>
+
         {% if questions %}
+
             <div class='paginate'>
-
                 <ul>
-
                     <li class='{% if not page_obj.has_previous %} disable {% endif %}'>
                         <a href="{% if page_obj.has_previous %}?{% url_replace page=page_obj.previous_page_number %}{% else %}#{% endif %}" >&lt;</a>
                     </li>
 
                     {% for p in paginator.page_range %}
                         {% if p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+
                             <li>
                                 <a href="?{% url_replace page=p %}" class='{% if p == page_obj.number%}active{% endif %}'>
                                     {{ p }}
                                 </a>
                             </li>
+
                         {% endif %}
                     {% endfor %}
 
                     <li class='{% if not page_obj.has_next %} disable {% endif %}'>
                         <a href="{% if page_obj.has_next %}?{% url_replace page=page_obj.next_page_number %}{% else %}#{% endif %}" >&gt;</a>
                     </li>
-
                 </ul>
-
             </div>
         {% endif %}
     </section>
+
 {% endblock content %}

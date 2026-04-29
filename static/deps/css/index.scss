@@ -248,6 +248,21 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    margin-top: 0.75rem;
+
+    .meta-bottom {
+      position: relative;
+      height: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .badge-your {
+      opacity: 1;
+      transition: all 0.3s $transition-bounce;
+      position: absolute;
+      left: 0;
+    }
 
     .creator-link {
       font-size: 0.85rem;
@@ -255,8 +270,11 @@
       font-weight: 600;
       opacity: 0;
       transform: translateY(10px);
-      transition: all 0.3s ease;
+      transition: all 0.3s $transition-bounce;
       text-decoration: none;
+      position: absolute;
+      left: 0;
+      white-space: nowrap;
       &:hover {
         text-decoration: underline;
       }
@@ -279,6 +297,12 @@
     .card-footer {
       transform: translateY(0);
       opacity: 1;
+    }
+
+    .badge-your {
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
     }
 
     .creator-link {
@@ -428,30 +452,44 @@
     }
   }
 
-  .category-label {
-    color: $primary;
-    font-weight: 700;
-    font-size: 0.75rem;
-    text-transform: uppercase;
+  .category-label,
+  .badge {
+    padding: 0.4rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 800;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .category-label {
+    background: #f3f4f6;
+    color: $text-light;
+    border: 1px solid rgba(0, 0, 0, 0.03);
   }
 
   .badge {
-    padding: 0.35rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.025em;
     &-new {
       background-color: #ecfdf5;
       color: #059669;
+      border: 1px solid rgba(5, 150, 105, 0.1);
+    }
+    &-your {
+      background-color: #dcfce7;
+      color: #15803d;
+      border: 1px solid rgba(21, 128, 61, 0.1);
     }
   }
 
   .text-light-sm {
     font-size: 0.875rem;
     color: $text-light;
-    margin-top: 0.75rem;
+    margin-top: 0;
   }
 
   .empty-state {
