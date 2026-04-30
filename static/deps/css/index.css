@@ -58,31 +58,48 @@
       gap: 1.5rem;
       align-items: flex-start; } }
 .filter-group {
+  position: relative;
   display: flex;
-  gap: 0.25rem;
   background: #f3f4f6;
   padding: 0.35rem;
   border-radius: 0.85rem;
   border: 1px solid rgba(0, 0, 0, 0.03); }
+  .filter-group form {
+    display: flex;
+    gap: 0.25rem;
+    width: 100%;
+    position: relative; }
+  .filter-group .filter-glider {
+    position: absolute;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 0.65rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+    pointer-events: none; }
   .filter-group .filter-btn {
+    position: relative;
+    z-index: 2;
     padding: 0.625rem 1.5rem;
     border-radius: 0.65rem;
     font-weight: 700;
     font-size: 0.9rem;
     color: #6b7280;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: color 0.3s ease;
     border: none;
     background: transparent;
-    cursor: pointer; }
+    cursor: pointer;
+    white-space: nowrap; }
     .filter-group .filter-btn:hover {
       color: #111827;
-      background: rgba(255, 255, 255, 0.5);
-      transform: translateY(-1px); }
+      background: transparent;
+      transform: none; }
     .filter-group .filter-btn.active {
-      background: #ffffff;
       color: #4f46e5;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transform: translateY(0); }
+      background: transparent;
+      box-shadow: none;
+      transform: none; }
       .filter-group .filter-btn.active:hover {
         transform: none; }
 

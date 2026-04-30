@@ -76,35 +76,56 @@
 }
 
 .filter-group {
+  position: relative;
   display: flex;
-  gap: 0.25rem;
   background: #f3f4f6;
   padding: 0.35rem;
   border-radius: 0.85rem;
   border: 1px solid rgba(0, 0, 0, 0.03);
 
+  form {
+    display: flex;
+    gap: 0.25rem;
+    width: 100%;
+    position: relative;
+  }
+
+  .filter-glider {
+    position: absolute;
+    height: 100%;
+    background: $white;
+    border-radius: 0.65rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s $transition-bounce;
+    z-index: 1;
+    pointer-events: none;
+  }
+
   .filter-btn {
+    position: relative;
+    z-index: 2;
     padding: 0.625rem 1.5rem;
     border-radius: 0.65rem;
     font-weight: 700;
     font-size: 0.9rem;
     color: $text-light;
-    transition: all 0.3s $transition-bounce;
+    transition: color 0.3s ease;
     border: none;
     background: transparent;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover {
       color: $text;
-      background: rgba(255, 255, 255, 0.5);
-      transform: translateY(-1px);
+      background: transparent;
+      transform: none;
     }
 
     &.active {
-      background: $white;
       color: $primary;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transform: translateY(0);
+      background: transparent;
+      box-shadow: none;
+      transform: none;
 
       &:hover {
         transform: none;

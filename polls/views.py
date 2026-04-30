@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import F
 from django.urls import reverse
 
 from django.utils import timezone
@@ -20,41 +20,46 @@ class MainPollsView(ListView):
     paginate_by = 6
     context_object_name = "questions"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        polls_voted_ids = []
-
-        if self.request.user.is_authenticated:
-            polls_voted_ids = self.request.user.polls_voted.values_list("id", flat=True)
-
-        context["polls_voted_ids"] = polls_voted_ids
-
-        category_slug = self.kwargs.get("category_slug")
-        context["category_slug"] = category_slug
-        return context
-
     def get_queryset(self):
-        queryset = Questions.objects.select_related("category")
+        user = self.request.user
+        filter_type = self.request.GET.get("filter")
+        
+        # init all questions voted for by users
+        if user.is_authenticated and filter_type == "voted":
+            queryset = user.polls_voted.all()
 
-        sort_by = self.request.GET.get("sort", "-pub_date")
-        queryset = queryset.order_by("?" if sort_by == "random" else sort_by)
+        else:
+            queryset = Questions.objects.all()
 
-        filter_key = self.request.GET.get("filter")
-        filters = {
-            "user": (
-                {"creator": self.request.user}
-                if self.request.user.is_authenticated
-                else {}
-            ),
-            "community": {},
-        }
-        queryset = queryset.filter(**filters.get(filter_key, {}))
+        # lazy loading JOIN
+        queryset = queryset.select_related("category", "creator")
 
+        # init all questions created by user
+        if user.is_authenticated and filter_type == "user":
+            queryset = queryset.filter(creator=user)
+
+        # sort by category
         category_slug = self.kwargs.get("category_slug")
         if category_slug and category_slug != "all":
             queryset = queryset.filter(category__slug=category_slug)
 
-        return queryset
+        # sort by option
+        sort = self.request.GET.get("sort", "-pub_date")
+        return queryset.order_by("?" if sort == "random" else sort)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # use set for instant (O(1)) pattern lookup
+        voted_ids = set()
+        if self.request.user.is_authenticated:
+            voted_ids = set(self.request.user.polls_voted.values_list("id", flat=True))
+
+        context.update({
+            "polls_voted_ids": voted_ids,
+            "category_slug": self.kwargs.get("category_slug"),
+        })
+        return context
 
 
 class CreatePollView(LoginRequiredMixin, CreateView):
@@ -80,6 +85,7 @@ class CreatePollView(LoginRequiredMixin, CreateView):
                 Choice.objects.create(question=self.object, choice_text=choice_text)
 
         return response
+    
 
 
 class DetailPollView(DetailView):
@@ -95,8 +101,7 @@ class DetailPollView(DetailView):
 
         if not self.request.session.get(session_key):
 
-            obj.views_count += 1
-            obj.save()
+            Questions.objects.filter(pk=obj.pk).update(views_count=F('views_count') + 1)
 
             self.request.session[session_key] = True
 

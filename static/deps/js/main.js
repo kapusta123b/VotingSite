@@ -65,4 +65,32 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Filter Glider Logic
+  const filterForm = document.getElementById("filter-form");
+  if (filterForm) {
+    const buttons = filterForm.querySelectorAll(".filter-btn");
+    const glider = filterForm.querySelector(".filter-glider");
+    const activeBtn = filterForm.querySelector(".filter-btn.active");
+
+    const moveGlider = (btn) => {
+      if (!btn) return;
+      glider.style.width = `${btn.offsetWidth}px`;
+      glider.style.left = `${btn.offsetLeft}px`;
+    };
+
+    if (activeBtn) {
+      setTimeout(() => moveGlider(activeBtn), 50);
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("mouseenter", () => moveGlider(btn));
+    });
+
+    filterForm.addEventListener("mouseleave", () => {
+      moveGlider(activeBtn);
+    });
+    
+    window.addEventListener("resize", () => moveGlider(activeBtn));
+  }
 });
