@@ -19,7 +19,6 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ["question_text", "pub_date", "was_published_recently", 'views_count']
     list_editable = [
         'views_count',
-        'pub_date'
     ]
     list_filter = ["pub_date"]
     search_fields = ["question_text"]

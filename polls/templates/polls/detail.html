@@ -16,7 +16,12 @@
                 <h1 class="page-title mt-1 mb-1">{{ question.question_text }}</h1>
                 <div class="poll-meta text-light">
                     <div class="meta-left">
-                        Published on {{ question.pub_date|date:"F j, Y" }} by <a href="{% url "user:profile" question.creator.id %}">{{ question.creator.username }}</a>
+                        Published on {{ question.pub_date|date:"F j, Y" }} by 
+                        {% if question.creator.id %}
+                            <a href="{% url "user:profile" question.creator.id %}">{{ question.creator.username }}</a>
+                        {% else %}
+                            <a href="#" class="creator-link">Deleted User</a>
+                        {% endif %}
                     </div>
                     <div class="meta-right">
                         <span class="view-count">

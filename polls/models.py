@@ -25,7 +25,7 @@ class Categories(models.Model):
 
 class Questions(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(to=Categories, on_delete=models.CASCADE)
     creator = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,

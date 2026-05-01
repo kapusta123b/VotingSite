@@ -141,7 +141,10 @@
                                     <input type="text" class="confirm-input" placeholder="Type question text here...">
                                     <div class="confirm-actions">
                                         <button class="btn-cancel">Cancel</button>
-                                        <button class="btn-delete-confirm" disabled>Delete</button>
+                                        <form action="{% url "polls:delete" question.id %}" method='post'>
+                                            {% csrf_token %}
+                                            <button class="btn-delete-confirm" disabled>Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
