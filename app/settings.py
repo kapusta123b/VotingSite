@@ -146,6 +146,7 @@ AUTH_USER_MODEL = "user.User"
 
 LOGIN_URL = "user:login"
 
-LOGOUT_REDIRECT_URL = "main:index"
+# LogoutView redirect url
+LOGOUT_REDIRECT_URL = "user:login"
 
 SESSION_COOKIE_AGE = datetime.timedelta(weeks=4).total_seconds()

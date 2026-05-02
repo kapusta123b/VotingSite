@@ -1,0 +1,176 @@
+.poll-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease; }
+  .poll-overlay.active {
+    opacity: 1;
+    visibility: visible; }
+
+.poll-modal {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  width: 90%;
+  max-width: 550px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateY(20px);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .poll-overlay.active .poll-modal {
+    transform: translateY(0); }
+
+.close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: #f9fafb;
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease; }
+  .close-btn:hover {
+    background: #e5e7eb;
+    color: #111827;
+    transform: rotate(90deg); }
+
+.poll-content {
+  text-align: center;
+  margin-bottom: 2rem; }
+  .poll-content .poll-category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem; }
+  .poll-content .poll-question {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+    margin-bottom: 0.75rem; }
+  .poll-content .poll-meta {
+    color: #6b7280;
+    font-size: 0.95rem; }
+    .poll-content .poll-meta strong {
+      color: #111827; }
+
+.poll-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem; }
+
+.choice-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease; }
+  .choice-item input[type="radio"] {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 50%;
+    margin-right: 1rem;
+    position: relative;
+    transition: all 0.2s ease; }
+    .choice-item input[type="radio"]:checked {
+      border-color: #4f46e5;
+      background: #4f46e5; }
+      .choice-item input[type="radio"]:checked::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.5rem;
+        height: 0.5rem;
+        background: #ffffff;
+        border-radius: 50%; }
+  .choice-item span {
+    font-weight: 500;
+    color: #111827; }
+  .choice-item:hover {
+    border-color: #4f46e5;
+    background: rgba(79, 70, 229, 0.02); }
+  .choice-item:has(input:checked) {
+    border-color: #4f46e5;
+    background: rgba(79, 70, 229, 0.05); }
+
+.poll-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%; }
+  .poll-navigation .vote-btn, .poll-navigation .nav-btn {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none; }
+  .poll-navigation .vote-btn.disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: default;
+    pointer-events: none; }
+  .poll-navigation .nav-btn {
+    background: #f9fafb;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    cursor: pointer; }
+    .poll-navigation .nav-btn:hover {
+      background: #e5e7eb;
+      transform: translateY(-2px); }
+
+.btn-wizard-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #ffffff;
+  border: 2px dashed #e5e7eb;
+  border-radius: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin: 2rem auto; }
+  .btn-wizard-trigger:hover {
+    border-color: #4f46e5;
+    color: #4f46e5;
+    background: rgba(79, 70, 229, 0.05);
+    transform: scale(1.02); }
+
+.wizard-container {
+  display: flex;
+  justify-content: center;
+  width: 100%; }

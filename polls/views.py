@@ -20,6 +20,8 @@ class MainPollsView(ListView):
     context_object_name = "questions"
 
     def get_queryset(self):
+        queryset = super().get_queryset()
+        
         user = self.request.user
         filter_type = self.request.GET.get("filter")
 
@@ -28,17 +30,14 @@ class MainPollsView(ListView):
 
         # init all questions created by user
         if user.is_authenticated and filter_type == "user":
-            queryset = queryset.filter(creator=user)
+            queryset = queryset.filter(creator_id=user.id)
 
         if filter_type == "community":
-            queryset = queryset.exclude(creator=user)
+            queryset = queryset.exclude(creator_id=user.id)
 
         # init all questions voted for by users
         if user.is_authenticated and filter_type == "voted":
             queryset = user.polls_voted.all()
-
-        else:
-            queryset = Questions.objects.all()
 
         # sort by category
         category_slug = self.kwargs.get("category_slug")
@@ -47,6 +46,7 @@ class MainPollsView(ListView):
 
         # sort by option
         sort = self.request.GET.get("sort", "-pub_date")
+
         return queryset.order_by("?" if sort == "random" else sort)
 
     def get_context_data(self, **kwargs):
@@ -56,6 +56,24 @@ class MainPollsView(ListView):
         voted_ids = set()
         if self.request.user.is_authenticated:
             voted_ids = set(self.request.user.polls_voted.values_list("id", flat=True))
+        
+        # logic for wizard random poll
+        if self.request.GET.get('wizard') == '1':
+            if self.request.GET.get('refresh') == '1':
+                self.request.session['wizard_viewed'] = []
+            
+            viewed_ids = self.request.session.get('wizard_viewed', [])
+
+            # exclude both those that have been viewed and those that have already been voted for
+            exclude_ids = set(viewed_ids) | voted_ids
+            
+            # get random question
+            wizard_question = Questions.objects.exclude(id__in=exclude_ids).order_by('?').first()
+            
+            if wizard_question:
+                viewed_ids.append(wizard_question.id)
+                self.request.session['wizard_viewed'] = viewed_ids
+                context['wizard_question'] = wizard_question
 
         context.update(
             {

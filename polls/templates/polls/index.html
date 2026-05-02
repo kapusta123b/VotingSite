@@ -5,6 +5,7 @@
 {% block css %}
     {% load sass_tags %}
     <link rel="stylesheet" href="{% sass_src "deps/css/index.scss" %}">
+    <link rel="stylesheet" href="{% sass_src "deps/css/wizard.scss" %}">
 {% endblock %}
 
 {% block content %}
@@ -169,6 +170,16 @@
 
                 {% endfor %}
             </div>
+
+            <div class="wizard-container">
+                <a href="#" id="open-poll-wizard" class="btn-wizard-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                    Give me something new!
+                </a>
+            </div>
         </div>
 
         {% if questions %}
@@ -199,4 +210,55 @@
         {% endif %}
     </section>
 
+    <div id="poll-wizard-overlay" class="poll-overlay {% if wizard_question %}active{% endif %}">
+        <div class="poll-modal">
+            <button id="close-poll-wizard" class="close-btn" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            
+            <div class="poll-content">
+                {% if wizard_question %}
+
+                    <span class="poll-category">{{ wizard_question.category.category_name }}</span>
+                    <h2 class="poll-question">{{ wizard_question.question_text }}</h2>
+                    <p class="poll-meta">Created by <strong>{{ wizard_question.creator.username|default:"Deleted User" }}</strong></p>
+                
+                {% elif request.GET.wizard == '1' %}
+                
+                    <span class="poll-category">Done!</span>
+                    <h2 class="poll-question">You've seen everything!</h2>
+                    <p class="poll-meta">Check back later or refresh history.</p>
+            
+                {% else %}
+                
+                    <span class="poll-category">Explore</span>
+                    <h2 class="poll-question">Ready for a random poll?</h2>
+                    <p class="poll-meta">Find something interesting to vote on!</p>
+                
+                {% endif %}
+            </div>
+
+            <div class="poll-navigation">
+                {% if wizard_question %}
+                
+                    <a href="{% url 'polls:detail' wizard_question.category.slug wizard_question.id %}" class="vote-btn">Vote!</a>
+                    <a href="?wizard=1" class="nav-btn">Skip</a>
+                
+                {% elif request.GET.wizard == '1' %}
+                
+                    <a href="?wizard=1&refresh=1" class="vote-btn">Refresh history</a>
+                    <a href="{% url 'polls:index' 'all' %}" class="nav-btn">Back to feed</a>
+                
+                {% else %}
+                    
+                    <a href="?wizard=1" class="vote-btn">Find a poll</a>
+                
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "deps/js/wizard.js" %}"></script>
 {% endblock content %}
