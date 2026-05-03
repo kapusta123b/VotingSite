@@ -1,14 +1,19 @@
+from email.policy import default
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.urls import reverse, reverse_lazy
+from django.views.generic.detail import SingleObjectMixin
+from django.db import transaction
+
 
 
 from django.shortcuts import get_object_or_404, render, redirect
 
-from django.views.generic import CreateView, DeleteView, DetailView, ListView
+from django.views.generic import CreateView, DeleteView, DetailView, FormView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from polls.forms import CreatePollForm
+from polls.forms import CreatePollForm, VotePollForm
 from polls.models import Questions, Choice
 from django.db.models import Sum
 
@@ -34,6 +39,9 @@ class MainPollsView(ListView):
 
         if filter_type == "community":
             queryset = queryset.exclude(creator_id=user.id)
+            
+            if user.is_authenticated:
+                queryset = queryset.exclude(id__in=user.polls_voted.all())
 
         # init all questions voted for by users
         if user.is_authenticated and filter_type == "voted":
@@ -45,7 +53,7 @@ class MainPollsView(ListView):
             queryset = queryset.filter(category__slug=category_slug)
 
         # sort by option
-        sort = self.request.GET.get("sort", "-pub_date")
+        sort = self.request.GET.get("sort", default="-pub_date")
 
         return queryset.order_by("?" if sort == "random" else sort)
 
@@ -59,6 +67,7 @@ class MainPollsView(ListView):
         
         # logic for wizard random poll
         if self.request.GET.get('wizard') == '1':
+
             if self.request.GET.get('refresh') == '1':
                 self.request.session['wizard_viewed'] = []
             
@@ -81,6 +90,7 @@ class MainPollsView(ListView):
                 "category_slug": self.kwargs.get("category_slug"),
             }
         )
+
         return context
 
 
@@ -118,6 +128,12 @@ class DetailPollView(DetailView):
             self.request.session[session_key] = True
 
         return obj
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = VotePollForm(question=self.object)
+        return context
+    
 
 
 class PollResultView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
@@ -163,33 +179,37 @@ class DeletePollView(LoginRequiredMixin, DeleteView):
         )
 
 
-@login_required
-def vote(request, question_id, category_slug=None):
-    questions = get_object_or_404(Questions, pk=question_id)
+class PollVoteView(LoginRequiredMixin, FormView, SingleObjectMixin):
+    model = Questions
+    pk_url_kwarg = 'question_id'
+    form_class = VotePollForm
+    template_name = 'polls/detail.html'
 
-    if questions in request.user.polls_voted.all():
-        return redirect("polls:results", questions.category.slug, questions.id)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
 
-    user = request.user
+        self.object = kwargs['question'] = self.get_object()
 
-    try:
-        selected_choice = questions.choice_set.get(pk=request.POST["choice"])
+        return kwargs
+    
+    def form_valid(self, form):
 
-    except (KeyError, Choice.DoesNotExist):
-        return render(
-            request,
-            "polls/detail.html",
-            {
-                "questions": questions,
-                "error_message": "You didn't select a choice.",
-            },
-        )
+        with transaction.atomic():
+            selected_choice = form.cleaned_data['choice']
+            selected_choice.votes = F('votes') + 1
+            selected_choice.save()
 
-    selected_choice.votes += 1
-    selected_choice.save()
+            self.request.user.votes = F('votes') + 1
+            self.request.user.polls_voted.add(self.object)
 
-    user.votes += 1
-    user.save()
-    user.polls_voted.add(questions)
+            return super().form_valid(form)
+        
+    def get_success_url(self):
+        question_category_slug = self.object.category.slug
+        question_id = self.object.id
 
-    return redirect("polls:results", questions.category.slug, questions.id)
+        return reverse("polls:results", kwargs={
+            "category_slug": question_category_slug,
+            "question_id": question_id,
+        })

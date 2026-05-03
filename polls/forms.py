@@ -32,3 +32,13 @@ class CreatePollForm(forms.ModelForm):
                     Choice.objects.create(question=instance, choice_text=text.strip())
 
             return instance
+        
+        
+class VotePollForm(forms.Form):
+    choice = forms.ModelChoiceField(queryset=Choice.objects.none(), widget=forms.RadioSelect)
+
+    def __init__(self, *args, **kwargs):
+        question = kwargs.pop('question')
+        super().__init__(*args, **kwargs)
+
+        self.fields['choice'].queryset = question.choice_set.all()

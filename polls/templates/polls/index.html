@@ -121,7 +121,7 @@
                                         
                                         {% endif %}
 
-                                        {% if question.creator.username %}
+                                        {% if question.creator.id %}
 
                                             <a href="{% url "user:profile" question.creator.id %}" class="creator-link">Created by {{ question.creator.username }}</a>
                                         

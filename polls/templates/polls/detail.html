@@ -42,17 +42,18 @@
                 <form method="post" action="{% url "polls:vote" question.category.slug question.id %}">
                     {% csrf_token %}
 
-                    {% if error_message %}
+                    {% if form.choice.errors %}
                         <div class="error-alert">
-                            {{ error_message }}
+                            {% for error in form.choice.errors  %}
+                                {{ error }}
+                            {% endfor %}
                         </div>
                     {% endif %}
 
                     <div class="voting-options">
-                        {% for choice in question.choice_set.all %}
-                            <label class="voting-option">
-                                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-                                <span>{{ choice.choice_text }}</span>
+                        {% for radio in form.choice %}
+                            <label for="{{ radio.id_for_label }}" class="voting-option">
+                                {{ radio.tag }} {{ radio.choice_label }}
                             </label>
                         {% endfor %}
                     </div>
