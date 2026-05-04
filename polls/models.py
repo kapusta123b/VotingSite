@@ -1,7 +1,9 @@
 from datetime import timedelta
+from functools import cached_property
+
+from django.db import models
 
 from django.utils import timezone
-from django.db import models
 
 from app import settings
 
@@ -46,7 +48,7 @@ class QuestionQuerySet(models.QuerySet):
         
         return self.none()
     
-    
+
 class Questions(models.Model):
     objects = QuestionQuerySet.as_manager()
     question_text = models.CharField(max_length=200)
@@ -62,6 +64,31 @@ class Questions(models.Model):
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - timedelta(minutes=30)
+    
+    @cached_property
+    def total_votes(self):
+        return self.choice_set.aggregate(models.Sum("votes"))["votes__sum"] or 0
+
+    def increment_views(self, session):
+        session_key = f"viewed_{self.id}"
+
+        if not session.get(session_key):
+            self.__class__.objects.filter(pk=self.pk).update(views_count=models.F("views_count") + 1)
+            session[session_key] = True
+            return True
+        
+        return False
+
+    def vote(self, user, choice):
+        from django.db import transaction
+        with transaction.atomic():
+            choice.votes = models.F('votes') + 1
+            choice.save()
+
+            user.votes = models.F('votes') + 1
+            user.save()
+
+            user.polls_voted.add(self)
 
     def __str__(self):
         return self.question_text

@@ -10,6 +10,6 @@ urlpatterns = [
     path('delete/<int:question_id>', views.DeletePollView.as_view(), name='delete'),
     path('<slug:category_slug>/', views.MainPollsView.as_view(), name='index'),
     path('<slug:category_slug>/<int:question_id>/', views.DetailPollView.as_view(), name='detail'),
-    path('<slug:category_slug>/<int:question_id>/results/', views.PollResultView.as_view(), name='results'),
+    path('<slug:category_slug>/<int:question_id>/results/', views.ResultPollView.as_view(), name='results'),
     path('<slug:category_slug>/<int:question_id>/vote/', views.PollVoteView.as_view(), name='vote'),
 ]

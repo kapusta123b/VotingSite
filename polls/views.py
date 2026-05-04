@@ -81,25 +81,19 @@ class DetailPollView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-
-        session_key = f"viewed_{obj.id}"
-
-        if not self.request.session.get(session_key):
-
-            Questions.objects.filter(pk=obj.pk).update(views_count=F("views_count") + 1)
-
-            self.request.session[session_key] = True
-
+        obj.increment_views(self.request.session)
+        
         return obj
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = VotePollForm(question=self.object)
+        
         return context
     
 
 
-class PollResultView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class ResultPollView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Questions
     template_name = "polls/results.html"
     pk_url_kwarg = "question_id"
@@ -118,13 +112,6 @@ class PollResultView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
             category_slug=self.question_obj.category.slug,
             question_id=self.question_obj.id,
         )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["total_votes"] = (
-            self.object.choice_set.aggregate(Sum("votes"))["votes__sum"] or 0
-        )
-        return context
 
 
 class DeletePollView(LoginRequiredMixin, DeleteView):
@@ -157,16 +144,8 @@ class PollVoteView(LoginRequiredMixin, FormView, SingleObjectMixin):
         return kwargs
     
     def form_valid(self, form):
-
-        with transaction.atomic():
-            selected_choice = form.cleaned_data['choice']
-            selected_choice.votes = F('votes') + 1
-            selected_choice.save()
-
-            self.request.user.votes = F('votes') + 1
-            self.request.user.polls_voted.add(self.object)
-
-            return super().form_valid(form)
+        self.object.vote(self.request.user, form.cleaned_data['choice'])
+        return super().form_valid(form)
         
     def get_success_url(self):
         question_category_slug = self.object.category.slug

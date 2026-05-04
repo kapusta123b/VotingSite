@@ -10,27 +10,29 @@ class CreatePollForm(forms.ModelForm):
         model = Questions
         fields = ["category", "question_text"]
 
-    # override the form method
-    def save(self, commit=True, user=None):
+    def clean(self):
+        cleaned_data = super().clean()
+        choices = [c.strip() for c in self.data.getlist('choices') if c.strip()]
         
-        with transaction.atomic():
+        if len(choices) < 2:
+            raise forms.ValidationError("The poll must contain at least 2 answer options.")
+            
+        cleaned_data['choices_list'] = choices 
+        return cleaned_data
 
-            # init question
+    def save(self, user=None):
+        with transaction.atomic():
             instance = super().save(commit=False)
-            instance.pub_date = timezone.now()
 
             if user:
                 instance.creator = user
 
-            if commit:
-                instance.save()
+            instance.save()
 
-                choices = self.data.getlist('choices')
-
-                # create choices for instance(question)
-                for text in choices:
-                    Choice.objects.create(question=instance, choice_text=text.strip())
-
+            choices = self.cleaned_data.get('choices_list', [])
+            for text in choices:
+                Choice.objects.create(question=instance, choice_text=text)
+            
             return instance
         
         
