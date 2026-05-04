@@ -1,5 +1,6 @@
 from datetime import timedelta
 from functools import cached_property
+from itertools import count
 
 from django.db import models
 
@@ -68,6 +69,13 @@ class Questions(models.Model):
     @cached_property
     def total_votes(self):
         return self.choice_set.aggregate(models.Sum("votes"))["votes__sum"] or 0
+
+    def similar_polls(self, user):
+        qs = self.__class__.objects.filter(category=self.category).exclude(id=self.id)
+        if user.is_authenticated:
+            qs = qs.exclude(id__in=user.polls_voted.all())
+        
+        return qs.order_by("-pub_date")[:4]
 
     def increment_views(self, session):
         session_key = f"viewed_{self.id}"

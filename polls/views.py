@@ -3,10 +3,6 @@ from django.views.generic import CreateView, DeleteView, DetailView, FormView, L
 
 from django.urls import reverse
 
-from django.db import transaction
-from django.db.models import Sum
-from django.db.models import F
-
 from django.shortcuts import redirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -88,6 +84,7 @@ class DetailPollView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = VotePollForm(question=self.object)
+        context["similar_polls"] = self.object.similar_polls(self.request.user)
         
         return context
     

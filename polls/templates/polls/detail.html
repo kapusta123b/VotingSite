@@ -72,6 +72,25 @@
                     Once you cast your vote, you'll be redirected to the results page where you can see how others have voted.
                 </p>
             </div>
+
+
+            {% if similar_polls %}
+
+                <div class="related-polls-section mt-5">
+                    <h2 class="section-title mb-3">You might also like</h2>
+
+                    <div class="related-grid">
+                        {% for poll in similar_polls %}
+                            <div class="related-card">
+                                <span class="related-category">{{ poll.category.category_name }}</span>
+                                <h4 class="related-question">{{ poll.question_text }}</h4>
+                                <a href="{% url "polls:detail" poll.category.slug poll.id %}" class="related-link">Vote Now →</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            {% endif %}
         </div>
     </section>
 {% endblock content %}

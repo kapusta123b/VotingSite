@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             overlay.classList.remove('active');
             body.style.overflow = '';
+            
+            const url = new URL(window.location);
+            url.searchParams.delete('wizard');
+            url.searchParams.delete('refresh');
+            window.history.replaceState({}, '', url);
         }
     };
 
