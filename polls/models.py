@@ -23,7 +23,32 @@ class Categories(models.Model):
         verbose_name_plural = "Categories"
 
 
+class QuestionQuerySet(models.QuerySet):
+    def by_category(self, slug):
+        if slug and slug != "all":
+            return self.filter(category__slug=slug)
+        
+        return self
+
+    def sorted_by(self, option):
+        return self.order_by(option or "-pub_date")
+
+    def community_polls(self, user):
+        qs = self.exclude(creator=user)
+        if user.is_authenticated:
+            qs = qs.exclude(id__in=user.polls_voted.all())
+
+        return qs
+
+    def user_polls(self, user):
+        if user.is_authenticated:
+            return self.filter(creator=user)
+        
+        return self.none()
+    
+    
 class Questions(models.Model):
+    objects = QuestionQuerySet.as_manager()
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(to=Categories, on_delete=models.CASCADE)

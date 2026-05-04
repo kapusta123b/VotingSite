@@ -1,21 +1,18 @@
-from email.policy import default
-
-from django.contrib.auth.decorators import login_required
-from django.db.models import F
-from django.urls import reverse, reverse_lazy
 from django.views.generic.detail import SingleObjectMixin
-from django.db import transaction
-
-
-
-from django.shortcuts import get_object_or_404, render, redirect
-
 from django.views.generic import CreateView, DeleteView, DetailView, FormView, ListView, UpdateView
+
+from django.urls import reverse
+
+from django.db import transaction
+from django.db.models import Sum
+from django.db.models import F
+
+from django.shortcuts import redirect
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from polls.forms import CreatePollForm, VotePollForm
-from polls.models import Questions, Choice
-from django.db.models import Sum
+from polls.models import Questions
 
 
 class MainPollsView(ListView):
@@ -25,64 +22,30 @@ class MainPollsView(ListView):
     context_object_name = "questions"
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        
         user = self.request.user
         filter_type = self.request.GET.get("filter")
 
-        # lazy loading JOIN
-        queryset = queryset.select_related("category", "creator")
+        if filter_type == "user":
+            queryset = Questions.objects.user_polls(user)
 
-        # init all questions created by user
-        if user.is_authenticated and filter_type == "user":
-            queryset = queryset.filter(creator_id=user.id)
-
-        if filter_type == "community":
-            queryset = queryset.exclude(creator_id=user.id)
-            
-            if user.is_authenticated:
-                queryset = queryset.exclude(id__in=user.polls_voted.all())
-
-        # init all questions voted for by users
-        if user.is_authenticated and filter_type == "voted":
+        elif filter_type == "voted" and user.is_authenticated:
             queryset = user.polls_voted.all()
 
-        # sort by category
-        category_slug = self.kwargs.get("category_slug")
-        if category_slug and category_slug != "all":
-            queryset = queryset.filter(category__slug=category_slug)
+        else:
+            queryset = Questions.objects.community_polls(user)
 
-        # sort by option
-        sort = self.request.GET.get("sort", default="-pub_date")
-
-        return queryset.order_by("?" if sort == "random" else sort)
+        return (
+            queryset.select_related("category", "creator")
+            .by_category(self.kwargs.get('category_slug'))
+            .sorted_by(self.request.GET.get("sort"))
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # use set for instant (O(1)) pattern lookup
         voted_ids = set()
         if self.request.user.is_authenticated:
             voted_ids = set(self.request.user.polls_voted.values_list("id", flat=True))
-        
-        # logic for wizard random poll
-        if self.request.GET.get('wizard') == '1':
-
-            if self.request.GET.get('refresh') == '1':
-                self.request.session['wizard_viewed'] = []
-            
-            viewed_ids = self.request.session.get('wizard_viewed', [])
-
-            # exclude both those that have been viewed and those that have already been voted for
-            exclude_ids = set(viewed_ids) | voted_ids
-            
-            # get random question
-            wizard_question = Questions.objects.exclude(id__in=exclude_ids).order_by('?').first()
-            
-            if wizard_question:
-                viewed_ids.append(wizard_question.id)
-                self.request.session['wizard_viewed'] = viewed_ids
-                context['wizard_question'] = wizard_question
 
         context.update(
             {

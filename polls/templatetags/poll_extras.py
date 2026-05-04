@@ -34,3 +34,34 @@ def url_replace(context, **kwargs):
         query[kwarg] = value
     
     return query.urlencode()
+
+@register.inclusion_tag('polls/includes/wizard_modal.html', takes_context=True)
+def render_wizard(context):
+    request = context['request']
+    user = request.user
+    
+    wizard_question = None
+    
+    if request.GET.get('wizard') == '1':
+
+        if request.GET.get('refresh') == '1':
+            request.session['wizard_viewed'] = []
+        
+        viewed_ids = request.session.get('wizard_viewed', [])
+        
+        exclude_ids = set(viewed_ids)
+        
+        if user.is_authenticated:
+            voted_ids = user.polls_voted.values_list("id", flat=True)
+            exclude_ids.update(voted_ids)
+        
+        wizard_question = Questions.objects.exclude(id__in=exclude_ids).order_by('?').first()
+        
+        if wizard_question:
+            viewed_ids.append(wizard_question.id)
+            request.session['wizard_viewed'] = viewed_ids
+            
+    return {
+        'wizard_question': wizard_question,
+        'request': request,
+    }
