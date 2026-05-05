@@ -66,7 +66,11 @@
                         </div>
                     </div>
 
-                    <div class="form-actions d-flex gap-2">
+                    <div class="captcha-container">
+                        {{ form.captcha }}
+                    </div>
+
+                    <div class="form-actions-centered d-flex gap-2">
                         <button type="submit" class="btn btn-primary btn-publish">Publish Poll</button>
                         <a href="{% url 'polls:index' 'all' %}" class="btn btn-outline btn-cancel">Cancel</a>
                     </div>

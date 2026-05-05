@@ -50,15 +50,15 @@ class QuestionQuerySet(models.QuerySet):
         and polls the user has already voted in.
         """
 
-        qs = self.exclude(creator=user)
+        qs = self
         if user.is_authenticated:
-            qs = qs.exclude(id__in=user.polls_voted.all())
+            qs = qs.exclude(id__in=user.polls_voted.all()).exclude(creator=user)
 
         return qs
 
     def user_polls(self, user):
         """Return only the polls created by the specified user."""
-        
+
         if user.is_authenticated:
             return self.filter(creator=user)
         
@@ -66,8 +66,7 @@ class QuestionQuerySet(models.QuerySet):
     
 
 class Question(models.Model):
-    # connecting methods
-    objects = QuestionQuerySet.as_manager()
+    objects = QuestionQuerySet.as_manager() # connecting methods
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)

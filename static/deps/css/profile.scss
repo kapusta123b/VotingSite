@@ -1,12 +1,12 @@
 @import 'variables';
 
 .profile-card, .user-polls-section {
-    background: $profile-card-bg !important;
-    color: $white;
+    background: $white !important;
+    color: $text;
     border-radius: 2rem;
     padding: 3rem;
-    border: none;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid $border;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     
     @media (max-width: $tablet) {
         padding: 2rem 1.5rem;
@@ -31,10 +31,10 @@
             justify-content: center;
             font-size: 2.5rem;
             font-weight: 800;
-            box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.2);
         }
 
-        h1 { color: $white; margin-bottom: 0; }
+        h1 { color: $text; margin-bottom: 0; }
 
         @media (max-width: $tablet) {
             flex-direction: column;
@@ -47,12 +47,12 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid $border;
         padding-top: 2.5rem;
 
         .profile-info-column {
             .info-label {
-                color: rgba(255, 255, 255, 0.5);
+                color: $text-light;
                 font-size: 0.875rem;
                 display: block;
                 text-transform: uppercase;
@@ -61,7 +61,7 @@
             }
             .info-value {
                 font-weight: 600;
-                color: $white;
+                color: $text;
                 font-size: 1.125rem;
             }
         }
@@ -75,10 +75,10 @@
     .form-control {
         width: 100%;
         padding: 0.625rem 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: $white;
+        border: 1px solid $border;
         border-radius: 0.5rem;
-        color: $white;
+        color: $text;
         font-size: 1rem;
         margin-top: 0.25rem;
         transition: all $transition-speed ease;
@@ -86,7 +86,7 @@
         &:focus {
             outline: none;
             border-color: $primary;
-            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
     }
 
@@ -96,20 +96,20 @@
         gap: 1rem;
 
         .btn-logout {
-            color: #f87171;
-            border-color: rgba(248, 113, 113, 0.3);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.2);
             &:hover {
-                background-color: rgba(248, 113, 113, 0.1);
-                border-color: #f87171;
+                background-color: rgba(239, 68, 68, 0.05);
+                border-color: #ef4444;
             }
         }
         
         .btn-outline {
-            color: $white;
-            border-color: rgba(255, 255, 255, 0.2);
+            color: $text;
+            border-color: $border;
             &:hover {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: $white;
+                background: $bg;
+                border-color: darken($border, 10%);
             }
         }
     }
@@ -122,7 +122,7 @@
         font-size: 1.75rem;
         font-weight: 700;
         margin-bottom: 2rem;
-        color: $white;
+        color: $text;
     }
 
     .user-polls-list {
@@ -132,17 +132,17 @@
     }
 
     .user-poll-item {
-        background: rgba(255, 255, 255, 0.03);
+        background: $white;
         padding: 1.25rem 1.5rem;
         border-radius: 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid $border;
         display: flex;
         justify-content: space-between;
         align-items: center;
         transition: all $transition-speed ease;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.07);
+            background: $bg;
             border-color: $primary;
             transform: translateX(5px);
         }
@@ -150,14 +150,14 @@
         .user-poll-link {
             font-size: 1.125rem;
             font-weight: 600;
-            color: $white;
+            color: $text;
             text-decoration: none;
             &:hover { color: $primary; }
         }
 
         .user-poll-date {
             font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.4);
+            color: $text-light;
         }
 
         @media (max-width: $mobile) {

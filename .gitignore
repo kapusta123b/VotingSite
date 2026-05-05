@@ -2,6 +2,7 @@
 .venv
 venv
 env
+.env
 
 #cache
 __pycache__/
@@ -15,3 +16,4 @@ staticfiles/
 
 #db
 *.sqlite3
+

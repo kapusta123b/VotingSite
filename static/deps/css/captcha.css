@@ -1,0 +1,18 @@
+.captcha-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0; }
+  @media (max-width: 350px) {
+    .captcha-container {
+      transform: scale(0.85);
+      transform-origin: center; } }
+.form-actions-centered {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1.5rem; }
+  .form-actions-centered .btn {
+    min-width: 200px; }
+    @media (max-width: 480px) {
+      .form-actions-centered .btn {
+        width: 100%; } }

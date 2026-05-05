@@ -14,10 +14,11 @@ import datetime
 import os
 
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -39,7 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "sass_processor",
+    
+    'django_recaptcha',
+
     "main",
     "polls",
     "user",
@@ -150,3 +155,7 @@ LOGIN_URL = "user:login"
 LOGOUT_REDIRECT_URL = "user:login"
 
 SESSION_COOKIE_AGE = datetime.timedelta(weeks=4).total_seconds()
+
+# django-recaptcha
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')

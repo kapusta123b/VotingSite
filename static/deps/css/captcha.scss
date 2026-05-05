@@ -1,0 +1,27 @@
+@import 'variables';
+
+.captcha-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+    
+    // Scale down on very small screens if needed
+    @media (max-width: 350px) {
+        transform: scale(0.85);
+        transform-origin: center;
+    }
+}
+
+.form-actions-centered {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.5rem;
+
+    .btn {
+        min-width: 200px;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+}

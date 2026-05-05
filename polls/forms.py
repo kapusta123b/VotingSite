@@ -2,9 +2,12 @@ from polls.models import Choice, Question
 from django import forms
 
 from django.db import transaction
-from django.utils import timezone
+
+from django_recaptcha.fields import ReCaptchaField
+
 
 class CreatePollForm(forms.ModelForm):
+    captcha = ReCaptchaField()
 
     class Meta:
         model = Question

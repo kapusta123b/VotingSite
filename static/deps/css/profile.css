@@ -1,10 +1,10 @@
 .profile-card, .user-polls-section {
   background: #ffffff !important;
-  color: #ffffff;
+  color: #111827;
   border-radius: 2rem;
   padding: 3rem;
-  border: none;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
   @media (max-width: 768px) {
     .profile-card, .user-polls-section {
       padding: 2rem 1.5rem; } }
@@ -24,9 +24,9 @@
     justify-content: center;
     font-size: 2.5rem;
     font-weight: 800;
-    box-shadow: 0 0 20px rgba(79, 70, 229, 0.4); }
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.2); }
   .profile-card .profile-header-main h1 {
-    color: #ffffff;
+    color: #111827;
     margin-bottom: 0; }
   @media (max-width: 768px) {
     .profile-card .profile-header-main {
@@ -37,10 +37,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #e5e7eb;
   padding-top: 2.5rem; }
   .profile-card .profile-details-grid .profile-info-column .info-label {
-    color: rgba(255, 255, 255, 0.5);
+    color: #6b7280;
     font-size: 0.875rem;
     display: block;
     text-transform: uppercase;
@@ -48,7 +48,7 @@
     margin-bottom: 0.25rem; }
   .profile-card .profile-details-grid .profile-info-column .info-value {
     font-weight: 600;
-    color: #ffffff;
+    color: #111827;
     font-size: 1.125rem; }
   @media (max-width: 480px) {
     .profile-card .profile-details-grid {
@@ -57,34 +57,34 @@
 .profile-card .form-control {
   width: 100%;
   padding: 0.625rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
-  color: #ffffff;
+  color: #111827;
   font-size: 1rem;
   margin-top: 0.25rem;
   transition: all 0.2s ease; }
   .profile-card .form-control:focus {
     outline: none;
     border-color: #4f46e5;
-    background: rgba(255, 255, 255, 0.1); }
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
 
 .profile-card .profile-actions {
   margin-top: 3rem;
   display: flex;
   gap: 1rem; }
   .profile-card .profile-actions .btn-logout {
-    color: #f87171;
-    border-color: rgba(248, 113, 113, 0.3); }
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.2); }
     .profile-card .profile-actions .btn-logout:hover {
-      background-color: rgba(248, 113, 113, 0.1);
-      border-color: #f87171; }
+      background-color: rgba(239, 68, 68, 0.05);
+      border-color: #ef4444; }
   .profile-card .profile-actions .btn-outline {
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.2); }
+    color: #111827;
+    border-color: #e5e7eb; }
     .profile-card .profile-actions .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: #ffffff; }
+      background: #f9fafb;
+      border-color: #c8ccd5; }
 
 .user-polls-section {
   margin-top: 2.5rem; }
@@ -92,34 +92,34 @@
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 2rem;
-    color: #ffffff; }
+    color: #111827; }
   .user-polls-section .user-polls-list {
     display: flex;
     flex-direction: column;
     gap: 1rem; }
   .user-polls-section .user-poll-item {
-    background: rgba(255, 255, 255, 0.03);
+    background: #ffffff;
     padding: 1.25rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #e5e7eb;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.2s ease; }
     .user-polls-section .user-poll-item:hover {
-      background: rgba(255, 255, 255, 0.07);
+      background: #f9fafb;
       border-color: #4f46e5;
       transform: translateX(5px); }
     .user-polls-section .user-poll-item .user-poll-link {
       font-size: 1.125rem;
       font-weight: 600;
-      color: #ffffff;
+      color: #111827;
       text-decoration: none; }
       .user-polls-section .user-poll-item .user-poll-link:hover {
         color: #4f46e5; }
     .user-polls-section .user-poll-item .user-poll-date {
       font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.4); }
+      color: #6b7280; }
     @media (max-width: 480px) {
       .user-polls-section .user-poll-item {
         flex-direction: column;

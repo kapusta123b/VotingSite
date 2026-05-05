@@ -7,10 +7,14 @@ from django.contrib.auth.forms import (
     UserCreationForm,
 )
 
+from django_recaptcha.fields import ReCaptchaField
+
+
 from user.models import User
 
 
 class UserLoginForm(AuthenticationForm):
+    captcha = ReCaptchaField()
 
     class Meta:
         model = User
@@ -18,6 +22,7 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserRegistrationForm(UserCreationForm):
+    captcha = ReCaptchaField()
 
     class Meta:
         model = User
