@@ -8,11 +8,11 @@ from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from polls.forms import CreatePollForm, VotePollForm
-from polls.models import Questions
+from polls.models import Question
 
 
 class MainPollsView(ListView):
-    model = Questions
+    model = Question
     template_name = "polls/index.html"
     paginate_by = 6
     context_object_name = "questions"
@@ -22,13 +22,13 @@ class MainPollsView(ListView):
         filter_type = self.request.GET.get("filter")
 
         if filter_type == "user":
-            queryset = Questions.objects.user_polls(user)
+            queryset = Question.objects.user_polls(user)
 
         elif filter_type == "voted" and user.is_authenticated:
             queryset = user.polls_voted.all()
 
         else:
-            queryset = Questions.objects.community_polls(user)
+            queryset = Question.objects.community_polls(user)
 
         return (
             queryset.select_related("category", "creator")
@@ -72,7 +72,7 @@ class CreatePollView(LoginRequiredMixin, CreateView):
 class DetailPollView(DetailView):
     template_name = "polls/detail.html"
     context_object_name = "question"
-    model = Questions
+    model = Question
     pk_url_kwarg = "question_id"
 
     def get_object(self, queryset=None):
@@ -91,7 +91,7 @@ class DetailPollView(DetailView):
 
 
 class ResultPollView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Questions
+    model = Question
     template_name = "polls/results.html"
     pk_url_kwarg = "question_id"
     context_object_name = "question"
@@ -112,7 +112,7 @@ class ResultPollView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
 
 class DeletePollView(LoginRequiredMixin, DeleteView):
-    model = Questions
+    model = Question
     pk_url_kwarg = "question_id"
 
     def get_queryset(self):
@@ -127,7 +127,7 @@ class DeletePollView(LoginRequiredMixin, DeleteView):
 
 
 class PollVoteView(LoginRequiredMixin, FormView, SingleObjectMixin):
-    model = Questions
+    model = Question
     pk_url_kwarg = 'question_id'
     form_class = VotePollForm
     template_name = 'polls/detail.html'

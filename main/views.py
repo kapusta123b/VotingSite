@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 
-from polls.models import Questions
+from polls.models import Question
 
 
 class IndexPageView(TemplateView):
@@ -8,7 +8,7 @@ class IndexPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["recent_polls"] = Questions.objects.all().order_by("-pub_date")[:6]
+        context["recent_polls"] = Question.objects.all().order_by("-pub_date")[:6]
         return context
 
 

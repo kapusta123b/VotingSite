@@ -1,17 +1,17 @@
 from django import template
-from polls.models import Categories, Questions
+from polls.models import Category, Question
 
 register = template.Library()
 
 @register.simple_tag()
 def tag_categories():
-    return Categories.objects.all()
+    return Category.objects.all()
 
 @register.simple_tag()
 def tag_questions(category_slug=None):
     if category_slug and category_slug != 'all':
-        return Questions.objects.filter(category__slug=category_slug)
-    return Questions.objects.all()
+        return Question.objects.filter(category__slug=category_slug)
+    return Question.objects.all()
 
 @register.filter
 def multiply(value, arg):
@@ -55,7 +55,7 @@ def render_wizard(context):
             voted_ids = user.polls_voted.values_list("id", flat=True)
             exclude_ids.update(voted_ids)
         
-        wizard_question = Questions.objects.exclude(id__in=exclude_ids).order_by('?').first()
+        wizard_question = Question.objects.exclude(id__in=exclude_ids).order_by('?').first()
         
         if wizard_question:
             viewed_ids.append(wizard_question.id)

@@ -1,4 +1,4 @@
-from polls.models import Choice, Questions
+from polls.models import Choice, Question
 from django import forms
 
 from django.db import transaction
@@ -7,7 +7,7 @@ from django.utils import timezone
 class CreatePollForm(forms.ModelForm):
 
     class Meta:
-        model = Questions
+        model = Question
         fields = ["category", "question_text"]
 
     def clean(self):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Categories, Choice, Questions
+from .models import Category, Choice, Question
 
 # Register your models here.
 
@@ -25,5 +25,5 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Questions, QuestionAdmin)
-admin.site.register(Categories)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Category)

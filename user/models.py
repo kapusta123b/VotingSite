@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from polls.models import Questions
+from polls.models import Question
 
 
 class User(AbstractUser):
     votes = models.IntegerField(default=0, null=True)
-    polls_voted = models.ManyToManyField(to=Questions, blank=True)
+    polls_voted = models.ManyToManyField(to=Question, blank=True)
 
     def __str__(self):
         return self.username
