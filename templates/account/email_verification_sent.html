@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/email_verification_sent.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <h1>Verify Your Email</h1>
+                <p>We have sent an e-mail to you for verification. Please follow the link provided to finalize your registration.</p>
+                <p>Check your spam folder if you don't see it within a few minutes.</p>
+            </div>
+            <div class="form-footer">
+                <a href="{% url 'account_login' %}" class="btn btn-primary">Back to Login</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,18 +1,19 @@
+@charset "UTF-8";
 .captcha-container {
-  display: flex;
-  justify-content: center;
-  margin: 1.5rem 0; }
-  @media (max-width: 350px) {
-    .captcha-container {
-      transform: scale(0.85);
-      transform-origin: center; } }
-.form-actions-centered {
+  margin: 1.5rem 0;
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 1.5rem; }
-  .form-actions-centered .btn {
-    min-width: 200px; }
-    @media (max-width: 480px) {
-      .form-actions-centered .btn {
-        width: 100%; } }
+  overflow: hidden;
+  /* Чтобы края не обрезались */
+  /* Если на мобилках всё равно не влезает */ }
+  .captcha-container > div {
+    /* Убираем scale, чтобы не портить края */
+    display: inline-block;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px; }
+  @media (max-width: 350px) {
+    .captcha-container > div {
+      transform: scale(0.85);
+      transform-origin: center top; } }

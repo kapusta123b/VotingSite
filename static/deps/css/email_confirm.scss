@@ -1,0 +1,28 @@
+@import 'variables';
+
+.auth-container {
+    max-width: 450px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    
+    .auth-card {
+        background: $white;
+        padding: 2.5rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        border: 1px solid $border;
+        text-align: center;
+
+        .auth-header {
+            margin-bottom: 2rem;
+            h1 { font-size: 1.75rem; color: $text; }
+            p { color: $text-light; margin-top: 1rem; line-height: 1.5; }
+        }
+    }
+}
+
+.form-actions-centered {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}

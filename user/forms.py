@@ -9,30 +9,17 @@ from django.contrib.auth.forms import (
 
 from django_recaptcha.fields import ReCaptchaField
 
-
 from user.models import User
 
 
-class UserLoginForm(AuthenticationForm):
+from allauth.account.forms import LoginForm, SignupForm
+
+class UserLoginForm(LoginForm):
     captcha = ReCaptchaField()
 
-    class Meta:
-        model = User
-        fields = ["username", "password"]
 
-
-class UserRegistrationForm(UserCreationForm):
+class UserSignUpForm(SignupForm):
     captcha = ReCaptchaField()
-
-    class Meta:
-        model = User
-        fields = (
-            "username",
-            "email",
-            "password1",
-            "password2",
-        )
-
 
 class UserUpdateProfileForm(UserChangeForm):
     class Meta:

@@ -1,0 +1,12 @@
+{% extends "account/email/base_email.html" %}
+
+{% block content %}
+    <p>Hi {{ user.username }},</p>
+    <p>Welcome to Votely! We're excited to have you on board.</p>
+    <p>To complete your registration, please confirm your email address by clicking the button below:</p>
+    <div class="button-wrapper">
+        <a href="{{ activate_url }}" class="button">Confirm Email</a>
+    </div>
+    <p>If the button above doesn't work, you can use this link:</p>
+    <p style="word-break: break-all;"><a href="{{ activate_url }}">{{ activate_url }}</a></p>
+{% endblock %}

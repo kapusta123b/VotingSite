@@ -1,0 +1,8 @@
+Welcome to Votely!
+
+Hi {{ user.username }},
+
+Confirm your email address by clicking here: {{ activate_url }}
+
+Best regards,
+The Votely Team

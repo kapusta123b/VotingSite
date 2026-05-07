@@ -1,0 +1,25 @@
+.auth-container {
+  max-width: 450px;
+  margin: 4rem auto;
+  padding: 0 1rem; }
+  .auth-container .auth-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    text-align: center; }
+    .auth-container .auth-card .auth-header {
+      margin-bottom: 2rem; }
+      .auth-container .auth-card .auth-header h1 {
+        font-size: 1.75rem;
+        color: #111827; }
+      .auth-container .auth-card .auth-header p {
+        color: #6b7280;
+        margin-top: 1rem;
+        line-height: 1.5; }
+
+.form-actions-centered {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center; }

@@ -1,0 +1,24 @@
+.auth-container {
+  max-width: 450px;
+  margin: 4rem auto;
+  padding: 0 1rem; }
+  .auth-container .auth-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    text-align: center; }
+    .auth-container .auth-card .auth-header h1 {
+      font-size: 1.75rem;
+      color: #111827;
+      margin-bottom: 1rem; }
+    .auth-container .auth-card .auth-header p {
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 1rem; }
+    .auth-container .auth-card .btn-primary {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none; }

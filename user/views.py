@@ -1,25 +1,10 @@
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.views import LoginView
 
-from user.forms import UserLoginForm, UserRegistrationForm, UserUpdateProfileForm
+from user.forms import UserUpdateProfileForm
 from user.models import User
-
-
-class RegisterUser(CreateView):
-    form_class = UserRegistrationForm
-    template_name = "user/registration.html"
-    success_url = reverse_lazy("user:login")
-
-
-class LoginUser(LoginView):
-    form_class = UserLoginForm
-    template_name = "user/login.html"
-
-    def get_success_url(self):
-        return reverse_lazy("main:index")
 
 
 class ProfileUser(DetailView):
@@ -29,6 +14,9 @@ class ProfileUser(DetailView):
     model = User
 
 
+from django.contrib import messages
+from allauth.account.models import EmailAddress
+
 class UpdateUserInformationView(UpdateView):
     model = User
     form_class = UserUpdateProfileForm
@@ -36,5 +24,28 @@ class UpdateUserInformationView(UpdateView):
     template_name = "user/profile.html"
     context_object_name = "profile_user"
 
+    def form_valid(self, form):
+        old_email = User.objects.get(pk=self.object.pk).email
+        new_email = form.cleaned_data.get('email')
+
+        if new_email and new_email != old_email:
+            email_address, created = EmailAddress.objects.get_or_create(
+                user=self.request.user, 
+                email=new_email
+            )
+            email_address.verified = False
+            email_address.save()
+            
+            # Отправляем подтверждение через метод модели
+            email_address.send_confirmation(self.request, signup=False)
+            
+            messages.info(self.request, f"Confirmation email sent to {new_email}. Please verify it to complete the change.")
+            
+            form.cleaned_data['email'] = old_email
+            form.instance.email = old_email
+
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse("user:profile", kwargs={"user_id": self.object.pk})
+

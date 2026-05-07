@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/email_confirm.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <h1>Confirm E-mail Address</h1>
+                {% if confirmation %}
+                    <p>Please confirm that <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> is an e-mail address for user {{ confirmation.email_address.user }}.</p>
+                    
+                    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                        {% csrf_token %}
+                        <div class="form-actions-centered">
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <p>This e-mail confirmation link expired or is invalid. Please <a href="{% url 'account_email' %}">issue a new e-mail confirmation request</a>.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

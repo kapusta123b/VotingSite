@@ -15,13 +15,28 @@
         .auth-header {
             text-align: center;
             margin-bottom: 2rem;
-            h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+            h1 { font-size: 1.75rem; margin-bottom: 0.5rem; color: $text; }
             p { color: $text-light; }
         }
 
         @media (max-width: $tablet) {
             padding: 1.5rem;
         }
+    }
+}
+
+.error-messages {
+    background: #fff5f5;
+    border-left: 4px solid #ff4d4d;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+
+    .error {
+        color: #ff4d4d;
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 500;
     }
 }
 
@@ -33,6 +48,7 @@
         font-weight: 600;
         margin-bottom: 0.5rem;
         font-size: 0.875rem;
+        color: $text;
     }
 
     .form-input {
@@ -41,6 +57,7 @@
         border: 1px solid $border;
         border-radius: 0.625rem;
         font-size: 1rem;
+        color: #000;
         transition: all $transition-speed;
 
         &:focus {
@@ -48,10 +65,31 @@
             border-color: $primary;
             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
+
+        &.is-invalid {
+            border-color: #ff4d4d;
+        }
     }
 }
 
-        .form-actions-centered {
+.field-errors {
+    margin-top: 0.5rem;
+    .error-item {
+        color: #ff4d4d;
+        font-size: 0.8125rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+}
+
+.captcha-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.form-actions-centered {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
@@ -109,8 +147,14 @@
 }
 
 .form-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: $text-light;
-            a { color: $primary; text-decoration: none; font-weight: 500; }
-        }
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: $text-light;
+
+    a {
+        color: $primary;
+        font-weight: 600;
+        &:hover { color: $primary-hover; }
+    }
+}

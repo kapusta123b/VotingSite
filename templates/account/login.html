@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src "deps/css/auth.scss" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <h1 class="mb-1">Welcome Back</h1>
+                <p class="text-light">Log in to your account to participate in polls and see the latest results.</p>
+            </div>
+
+            <form method="post" action="{% url 'account_login' %}">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="error-messages">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="error">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="form-field">
+                    <label for="id_login">Username or Email</label>
+                    <input
+                        type="text"
+                        id="id_login"
+                        name="login"
+                        class="form-input"
+                        placeholder="Enter your username or email"
+                        required
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="id_password">Password</label>
+                    <input
+                        type="password"
+                        id="id_password"
+                        name="password"
+                        class="form-input"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <div class="captcha-container">
+                    {{ form.captcha }}
+                </div>
+
+                <div class="form-actions-centered">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+            </form>
+
+            <div class="social-login-separator">
+                <span>Or sign in with</span>
+            </div>
+
+            <div class="social-login-container">
+                {% load socialaccount %}
+                <a href="{% provider_login_url 'google' %}" class="btn-social btn-google">
+                    <img src="{% static 'deps/svg/auth/icon-google.png' %}" alt="" class="social-icon">
+                    <span>Sign in with Google</span>
+                </a>
+                <a href="" class="btn-social btn-github">
+                    <img src="{% static "deps/svg/auth/icon-github.png" %}" alt="" class="social-icon">
+                    <span>Sign in with GitHub</span>
+                </a>
+            </div>
+
+            <div class="form-footer">
+                <p>Don't have an account? <a href="{% url 'account_signup' %}">Register here</a></p>
+                <p class="mt-2"><a href="{% url 'account_reset_password' %}" class="text-muted" style="font-size: 0.8rem; opacity: 0.8;">Forgot Password?</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

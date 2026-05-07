@@ -1,0 +1,59 @@
+.section-padding {
+  padding: 80px 0; }
+
+.container-narrow {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px; }
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1); }
+
+.auth-header h1, .auth-header h2 {
+  color: #fff;
+  margin-bottom: 15px; }
+
+.auth-header p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px; }
+
+.form-check {
+  margin-bottom: 10px;
+  color: #fff; }
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 5px; }
+
+.badge-success {
+  background: #28a745; }
+
+.badge-warning {
+  background: #ffc107;
+  color: #000; }
+
+.badge-primary {
+  background: #007bff; }
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px; }
+
+.form-field {
+  margin-bottom: 15px; }
+
+.form-field input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff; }

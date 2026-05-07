@@ -1,0 +1,12 @@
+{% extends "account/email/base_email.html" %}
+
+{% block content %}
+    <p>Hi,</p>
+    <p>You are receiving this email because you (or someone else) tried to sign up for an account using this email address.</p>
+    <p><strong>However, an account with this email already exists.</strong></p>
+    <p>If you forgot your password, you can reset it by clicking the button below:</p>
+    <div class="button-wrapper">
+        <a href="{{ password_reset_url }}" class="button">Reset Password</a>
+    </div>
+    <p>If you didn't try to sign up, you can safely ignore this email.</p>
+{% endblock %}
