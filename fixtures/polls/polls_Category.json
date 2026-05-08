@@ -1,0 +1,57 @@
+[
+  {
+    "model": "polls.category",
+    "pk": 6,
+    "fields": { "category_name": "All", "slug": "all" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 7,
+    "fields": { "category_name": "Fun", "slug": "fun" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 8,
+    "fields": { "category_name": "Internet Technologies", "slug": "it" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 9,
+    "fields": { "category_name": "Sports", "slug": "sports" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 11,
+    "fields": { "category_name": "Science", "slug": "science" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 12,
+    "fields": { "category_name": "Travel", "slug": "travel" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 13,
+    "fields": { "category_name": "Gaming", "slug": "gaming" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 14,
+    "fields": { "category_name": "Music", "slug": "music" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 15,
+    "fields": { "category_name": "Movies", "slug": "movies" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 16,
+    "fields": { "category_name": "Food", "slug": "food" }
+  },
+  {
+    "model": "polls.category",
+    "pk": 17,
+    "fields": { "category_name": "Lifestyle", "slug": "lifestyle" }
+  }
+]
