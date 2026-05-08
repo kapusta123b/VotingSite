@@ -1,0 +1,7 @@
+Django>=6.0.0
+django-allauth>=0.61.0
+django-sass-processor>=1.4
+django-recaptcha>=4.0.0
+python-dotenv>=1.0.0
+libsass>=0.23.0
+EOF

@@ -78,7 +78,7 @@
                     <img src="{% static "deps/svg/auth/icon-google.png" %}" alt="" class="social-icon">
                     <span>Sign up with Google</span>
                 </a>
-                <a href="" class="btn-social btn-github">
+                <a href="{% provider_login_url 'github' %}" class="btn-social btn-github">
                     <img src="{% static "deps/svg/auth/icon-github.png" %}" alt="" class="social-icon">
                     <span>Sign up with GitHub</span>
                 </a>

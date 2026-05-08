@@ -1,0 +1,387 @@
+[
+  {
+    "model": "polls.question",
+    "pk": 50,
+    "fields": {
+      "question_text": "What's your favorite programming language?",
+      "pub_date": "2026-04-06T21:11:10.309Z",
+      "category": 8,
+      "creator": null,
+      "views_count": 1813
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 51,
+    "fields": {
+      "question_text": "Who will win the next FIFA World Cup?",
+      "pub_date": "2026-04-18T01:11:10.317Z",
+      "category": 9,
+      "creator": 1,
+      "views_count": 2833
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 52,
+    "fields": {
+      "question_text": "Which space agency will reach Mars first?",
+      "pub_date": "2026-04-07T13:11:10.326Z",
+      "category": 11,
+      "creator": null,
+      "views_count": 2614
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 53,
+    "fields": {
+      "question_text": "What's the best vacation destination?",
+      "pub_date": "2026-04-27T06:11:10.334Z",
+      "category": 12,
+      "creator": null,
+      "views_count": 3129
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 54,
+    "fields": {
+      "question_text": "Favorite gaming console?",
+      "pub_date": "2026-04-05T08:11:10.345Z",
+      "category": 13,
+      "creator": null,
+      "views_count": 4864
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 55,
+    "fields": {
+      "question_text": "Best music genre?",
+      "pub_date": "2026-05-02T00:11:10.354Z",
+      "category": 14,
+      "creator": null,
+      "views_count": 4506
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 56,
+    "fields": {
+      "question_text": "Should AI be regulated?",
+      "pub_date": "2026-04-26T06:11:10.363Z",
+      "category": 11,
+      "creator": null,
+      "views_count": 3068
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 57,
+    "fields": {
+      "question_text": "Favorite streaming service?",
+      "pub_date": "2026-04-28T22:11:10.371Z",
+      "category": 8,
+      "creator": null,
+      "views_count": 4971
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 58,
+    "fields": {
+      "question_text": "Best way to start the day?",
+      "pub_date": "2026-04-19T11:11:10.380Z",
+      "category": 17,
+      "creator": null,
+      "views_count": 1238
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 59,
+    "fields": {
+      "question_text": "Favorite pizza topping?",
+      "pub_date": "2026-04-16T11:11:10.390Z",
+      "category": 16,
+      "creator": null,
+      "views_count": 682
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 60,
+    "fields": {
+      "question_text": "Which Marvel movie is the best?",
+      "pub_date": "2026-04-19T16:11:10.397Z",
+      "category": 15,
+      "creator": 1,
+      "views_count": 3283
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 61,
+    "fields": {
+      "question_text": "iOS or Android?",
+      "pub_date": "2026-04-25T19:11:10.404Z",
+      "category": 8,
+      "creator": null,
+      "views_count": 486
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 62,
+    "fields": {
+      "question_text": "Do you prefer working from home or office?",
+      "pub_date": "2026-04-04T15:11:10.409Z",
+      "category": 17,
+      "creator": null,
+      "views_count": 4878
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 63,
+    "fields": {
+      "question_text": "Favorite sport to watch?",
+      "pub_date": "2026-04-13T04:11:10.415Z",
+      "category": 9,
+      "creator": null,
+      "views_count": 3229
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 64,
+    "fields": {
+      "question_text": "Best browser?",
+      "pub_date": "2026-04-23T16:11:10.423Z",
+      "category": 8,
+      "creator": null,
+      "views_count": 2500
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 65,
+    "fields": {
+      "question_text": "Favorite cuisine?",
+      "pub_date": "2026-04-26T15:11:10.431Z",
+      "category": 16,
+      "creator": null,
+      "views_count": 2089
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 66,
+    "fields": {
+      "question_text": "Cat or Dog person?",
+      "pub_date": "2026-04-02T15:11:10.440Z",
+      "category": 17,
+      "creator": null,
+      "views_count": 2175
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 67,
+    "fields": {
+      "question_text": "Which planet would you visit?",
+      "pub_date": "2026-04-14T23:11:10.449Z",
+      "category": 11,
+      "creator": null,
+      "views_count": 304
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 68,
+    "fields": {
+      "question_text": "Best book genre?",
+      "pub_date": "2026-04-09T05:11:10.457Z",
+      "category": 17,
+      "creator": null,
+      "views_count": 727
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 69,
+    "fields": {
+      "question_text": "Favorite social media platform?",
+      "pub_date": "2026-04-08T18:11:10.465Z",
+      "category": 8,
+      "creator": null,
+      "views_count": 3376
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 81,
+    "fields": {
+      "question_text": "Best Programming Language for Beginners?",
+      "pub_date": "2026-04-18T18:56:00.254Z",
+      "category": 8,
+      "creator": 1,
+      "views_count": 1580
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 82,
+    "fields": {
+      "question_text": "Is Remote Work Better than Office?",
+      "pub_date": "2026-04-24T15:18:00.264Z",
+      "category": 17,
+      "creator": 1,
+      "views_count": 1169
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 83,
+    "fields": {
+      "question_text": "Who is the GOAT in Football?",
+      "pub_date": "2026-04-09T10:02:00.272Z",
+      "category": 9,
+      "creator": 1,
+      "views_count": 1209
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 84,
+    "fields": {
+      "question_text": "Marvel or DC?",
+      "pub_date": "2026-04-29T04:04:00.282Z",
+      "category": 15,
+      "creator": 1,
+      "views_count": 1188
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 85,
+    "fields": {
+      "question_text": "Favorite Coffee Type?",
+      "pub_date": "2026-05-02T09:58:00.291Z",
+      "category": 16,
+      "creator": 1,
+      "views_count": 1445
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 86,
+    "fields": {
+      "question_text": "Best Sci-Fi Movie of All Time?",
+      "pub_date": "2026-04-14T00:05:00.302Z",
+      "category": 15,
+      "creator": 1,
+      "views_count": 326
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 87,
+    "fields": {
+      "question_text": "PlayStation or Xbox?",
+      "pub_date": "2026-04-26T07:14:00.310Z",
+      "category": 13,
+      "creator": 1,
+      "views_count": 950
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 88,
+    "fields": {
+      "question_text": "Should we colonize Mars?",
+      "pub_date": "2026-04-22T03:05:00.319Z",
+      "category": 11,
+      "creator": 1,
+      "views_count": 712
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 89,
+    "fields": {
+      "question_text": "Favorite Season?",
+      "pub_date": "2026-04-16T01:16:00.326Z",
+      "category": 12,
+      "creator": 1,
+      "views_count": 637
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 90,
+    "fields": {
+      "question_text": "Best Web Browser in 2026?",
+      "pub_date": "2026-04-30T22:23:00.334Z",
+      "category": 8,
+      "creator": 1,
+      "views_count": 842
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 91,
+    "fields": {
+      "question_text": "Cats or Dogs?",
+      "pub_date": "2026-04-27T07:23:00.343Z",
+      "category": 7,
+      "creator": 1,
+      "views_count": 157
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 92,
+    "fields": {
+      "question_text": "Rock or Hip-Hop?",
+      "pub_date": "2026-04-11T22:38:00.352Z",
+      "category": 14,
+      "creator": 1,
+      "views_count": 1291
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 93,
+    "fields": {
+      "question_text": "Window or Aisle Seat?",
+      "pub_date": "2026-04-03T23:23:00.360Z",
+      "category": 12,
+      "creator": 1,
+      "views_count": 1561
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 94,
+    "fields": {
+      "question_text": "Do you believe in Aliens?",
+      "pub_date": "2026-04-19T17:40:00.368Z",
+      "category": 11,
+      "creator": 1,
+      "views_count": 869
+    }
+  },
+  {
+    "model": "polls.question",
+    "pk": 95,
+    "fields": {
+      "question_text": "Dark mode or Light mode?",
+      "pub_date": "2026-05-03T01:42:00.376Z",
+      "category": 8,
+      "creator": 1,
+      "views_count": 641
+    }
+  }
+]

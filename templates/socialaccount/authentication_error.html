@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card fade-in" style="text-align: center;">
+        <h1 class="text-danger">Redirecting...</h1>
+        <p>Authentication failed. Taking you back to login page.</p>
+    </div>
+</div>
+
+<script>
+    setTimeout(function() {
+        window.location.href = "{% url 'account_login' %}";
+    }, 1000);
+</script>
+{% endblock %}

@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+
     <section class="section-padding">
         <div class="container-narrow">
             <div class="mb-4">
@@ -20,7 +21,7 @@
 
                 <div class="poll-meta text-light">
                     <div class="meta-left">
-                        Published on {{ question.pub_date|date:"F j, Y" }} by <a href="{% url "user:profile" question.creator.id %}">{{ question.creator.username }}</a>
+                        Published on {{ question.pub_date|date:"F j, Y" }} by <a href="{% url "user:profile" user.id %}">{{ question.creator.username }}</a>
                     </div>
                     <div class="meta-right">
                         <span class="view-count">
@@ -78,13 +79,15 @@
                 <p class="text-light">Results are updated in real-time. Share this poll with others!</p>
                 <div class="mt-2 flex-center gap-1">
                     <button class="btn btn-outline btn-sm">Copy Link</button>
-                    <button class="btn btn-outline btn-sm">Share on Twitter</button>
                 </div>
             </div>
         </div>
     </section>
+
 {% endblock content %}
 
 {% block js %}
+
     <script src="{% static "deps/js/results.js" %}"></script>
+
 {% endblock %}
