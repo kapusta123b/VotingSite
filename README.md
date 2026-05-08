@@ -5,6 +5,16 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
+
+
+<table>
+  <tr>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/7f36c5d3-a8e5-4804-adbb-d0b348156afc" /></td>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/446c2bbe-e058-40c9-94b0-2a94de6cc7b8" /></td>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/c639fb0b-bcb4-4f23-907d-21dda458b2ba" /></td>
+  </tr>
+</table>
+
 A Django-based voting platform designed for creating polls.
 
 ## Key Features
