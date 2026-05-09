@@ -43,23 +43,36 @@
                     {% csrf_token %}
 
                     {% if form.choice.errors %}
+                    
                         <div class="error-alert">
                             {% for error in form.choice.errors  %}
                                 {{ error }}
                             {% endfor %}
                         </div>
+                    
                     {% endif %}
 
                     <div class="voting-options">
                         {% for radio in form.choice %}
+                        
                             <label for="{{ radio.id_for_label }}" class="voting-option">
                                 {{ radio.tag }} {{ radio.choice_label }}
                             </label>
+                        
                         {% endfor %}
                     </div>
 
-                    <div class="flex-center gap-1">
-                        <button type="submit" class="btn btn-primary btn-full btn-vote">Cast Your Vote</button>
+                    <div class="card-footer-actions">  
+                        {% if question.id in voted_ids %}
+                        
+                            <span class="btn btn-sm btn-voted disabled">Voted</span>
+                            <a href="{% url "polls:results" question.category.slug question.id %}" class="btn btn-primary btn-sm btn-results">Results</a>
+                        
+                        {% else %}
+                        
+                            <button {% if question.id in voted_ids%}disabled{% endif %} type="submit" class="btn btn-primary btn-full btn-vote">Cast Your Vote</button>
+                        
+                        {% endif %}
                     </div>
                 </form>
             </div>

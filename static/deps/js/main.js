@@ -93,4 +93,15 @@ document.addEventListener("DOMContentLoaded", () => {
     
     window.addEventListener("resize", () => moveGlider(activeBtn));
   }
+
+  // Auto-dismiss messages
+  const messages = document.querySelectorAll(".message-toast");
+  messages.forEach((message) => {
+    setTimeout(() => {
+      message.classList.add("message-fade-out");
+      setTimeout(() => {
+        message.remove();
+      }, 300);
+    }, 5000);
+  });
 });

@@ -1,6 +1,8 @@
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import CreateView, DeleteView, DetailView, FormView, ListView, UpdateView
 
+from django.contrib import messages
+
 from django.urls import reverse
 
 from django.shortcuts import redirect
@@ -38,11 +40,8 @@ class MainPollsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        voted_ids = set()
-        if self.request.user.is_authenticated:
-            voted_ids = set(self.request.user.polls_voted.values_list("id", flat=True))
-
+        voted_ids = self.model.voted_ids(self.request.user)
+        
         context.update(
             {
                 "polls_voted_ids": voted_ids,
@@ -58,6 +57,8 @@ class CreatePollView(LoginRequiredMixin, CreateView):
     template_name = "polls/create_poll.html"
 
     def get_success_url(self):
+        messages.success(self.request, "Poll created successfully!")
+
         return (
             reverse("polls:index", kwargs={"category_slug": self.object.category.slug})
             + "?filter=user&sort=-pub_date"
@@ -83,7 +84,10 @@ class DetailPollView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        voted_ids = self.model.voted_ids(self.request.user)
+
         context["form"] = VotePollForm(question=self.object)
+        context["voted_ids"] = voted_ids 
         context["similar_polls"] = self.object.similar_polls(self.request.user)
         
         return context
@@ -120,6 +124,8 @@ class DeletePollView(LoginRequiredMixin, DeleteView):
         return super().get_queryset().filter(creator=self.request.user)
 
     def get_success_url(self):
+        messages.success(self.request, "Poll deleted successfully!")
+
         return (
             reverse("polls:index", kwargs={"category_slug": self.object.category.slug})
             + "?filter=user&sort=-pub_date"
@@ -132,7 +138,6 @@ class PollVoteView(LoginRequiredMixin, FormView, SingleObjectMixin):
     form_class = VotePollForm
     template_name = 'polls/detail.html'
 
-    
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
 
@@ -141,12 +146,21 @@ class PollVoteView(LoginRequiredMixin, FormView, SingleObjectMixin):
         return kwargs
     
     def form_valid(self, form):
-        self.object.vote(self.request.user, form.cleaned_data['choice'])
+        vote_success = self.object.vote(self.object.id,self.request.user, form.cleaned_data['choice'])
+        (
+            messages.success(self.request, "Your vote has been recorded!")
+            if vote_success 
+            else 
+            messages.warning(self.request, "You have already voted for this poll!")
+        )
+
         return super().form_valid(form)
         
     def get_success_url(self):
         question_category_slug = self.object.category.slug
         question_id = self.object.id
+
+        
 
         return reverse("polls:results", kwargs={
             "category_slug": question_category_slug,

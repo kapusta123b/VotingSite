@@ -19,6 +19,23 @@
     @media (max-width: 768px) {
       .auth-container .auth-card {
         padding: 1.5rem; } }
+.account-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb; }
+  .account-nav a {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    transition: all 0.2s; }
+    .account-nav a:hover, .account-nav a.active {
+      color: #4f46e5; }
+
 .form-field {
   margin-bottom: 1.5rem; }
   .form-field label {

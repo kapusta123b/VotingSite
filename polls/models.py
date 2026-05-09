@@ -1,9 +1,7 @@
 from datetime import timedelta
 from functools import cached_property
-from itertools import count
 
 from django.db import models
-
 from django.utils import timezone
 
 from app import settings
@@ -82,6 +80,12 @@ class Question(models.Model):
         return self.pub_date >= timezone.now() - timedelta(minutes=30)
     
 
+    def voted_ids(user) -> set:
+        if user.is_authenticated:
+            return set(user.polls_voted.values_list("id", flat=True))
+        
+        return set()
+
     # function with a cache decorator, to be called in a template
     @cached_property
     def total_votes(self):
@@ -109,16 +113,20 @@ class Question(models.Model):
         return False
 
     from django.db import transaction
-
     # we use the atomic decorator for the function to avoid data loss.
     @transaction.atomic
-    def vote(self, user, choice):
-        choice.votes = models.F('votes') + 1
-        choice.save()
+    def vote(self, poll_id, user, choice) -> bool:
+        if not poll_id in user.polls_voted.values_list("id", flat=True):
+            choice.votes = models.F('votes') + 1
+            choice.save()
 
-        user.votes = models.F('votes') + 1
-        user.save()
-        user.polls_voted.add(self)
+            user.votes = models.F('votes') + 1
+            user.save()
+            user.polls_voted.add(self)
+
+            return True
+        
+        return False
 
     def __str__(self):
         return self.question_text

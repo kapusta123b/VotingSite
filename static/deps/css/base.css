@@ -210,3 +210,79 @@ footer {
 
 .gap-3 {
   gap: 1.5rem; }
+
+.messages-container {
+  position: fixed;
+  top: 5rem;
+  right: 2rem;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  width: calc(100% - 4rem); }
+  @media (max-width: 768px) {
+    .messages-container {
+      right: 1rem;
+      left: 1rem;
+      width: calc(100% - 2rem); } }
+.message-toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  animation: slideIn 0.3s ease-out forwards; }
+  .message-toast.success {
+    border-left: 4px solid #4f46e5; }
+    .message-toast.success .message-content {
+      color: #111827; }
+  .message-toast.error, .message-toast.danger {
+    border-left: 4px solid #ef4444; }
+    .message-toast.error .message-content, .message-toast.danger .message-content {
+      color: #ef4444; }
+  .message-toast.warning {
+    border-left: 4px solid #f59e0b; }
+    .message-toast.warning .message-content {
+      color: #92400e; }
+  .message-toast.info {
+    border-left: 4px solid #3b82f6; }
+    .message-toast.info .message-content {
+      color: #1e40af; }
+  .message-toast .message-content {
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-right: 1rem; }
+  .message-toast .message-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s; }
+    .message-toast .message-close:hover {
+      color: #111827; }
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0; }
+  to {
+    transform: translateX(0);
+    opacity: 1; } }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0); }
+  to {
+    opacity: 0;
+    transform: translateY(-10px); } }
+
+.message-fade-out {
+  animation: fadeOut 0.3s ease-in forwards; }

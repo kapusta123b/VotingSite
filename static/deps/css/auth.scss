@@ -25,6 +25,40 @@
     }
 }
 
+.account-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border;
+
+    a {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $text-light;
+        text-decoration: none;
+        transition: all $transition-speed;
+        padding: 0.5rem 0;
+        position: relative;
+
+        &:hover, &.active {
+            color: $primary;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -1rem;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background-color: $primary;
+            }
+        }
+    }
+}
+
 .form-field {
     margin-bottom: 1.5rem;
 

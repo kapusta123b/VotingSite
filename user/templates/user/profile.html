@@ -21,6 +21,11 @@
 
                 <form method="post" action="{% url "user:update" profile_user.id %}">
                     {% csrf_token %}
+                    {% for err in form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ err }}
+                        </div>
+                    {% endfor %}
                     <div class="profile-details-grid">
                         <div class="profile-info-column">
                             <h3 class="mb-2">Account Information</h3>
@@ -55,6 +60,7 @@
                         {% if user == profile_user %}
                             <div class="view-mode">
                                 <button type="button" class="btn btn-outline btn-sm" id="edit-profile-btn">Edit Profile</button>
+                                <a href="{% url 'account_email' %}" class="btn btn-outline btn-sm">Change Email</a>
                                 <a href="{% url 'account_change_password' %}" class="btn btn-outline btn-sm">Change Password</a>
                                 <a href="{% url 'account_logout' %}" class="btn btn-outline btn-sm btn-logout">Log Out</a>
                             </div>

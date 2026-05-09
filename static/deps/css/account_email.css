@@ -1,59 +1,147 @@
-.section-padding {
-  padding: 80px 0; }
-
-.container-narrow {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0 20px; }
-
 .auth-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1); }
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb; }
 
-.auth-header h1, .auth-header h2 {
-  color: #fff;
-  margin-bottom: 15px; }
+.account-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb; }
+  .account-nav a {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    transition: all 0.2s; }
+    .account-nav a:hover, .account-nav a.active {
+      color: #4f46e5; }
 
-.auth-header p {
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 20px; }
+.auth-header {
+  margin-bottom: 2.5rem; }
+  .auth-header h1 {
+    color: #111827;
+    margin-bottom: 0.75rem;
+    font-size: 2rem;
+    font-weight: 800; }
+  .auth-header h2 {
+    color: #111827;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700; }
+  .auth-header p {
+    color: #6b7280;
+    margin-bottom: 0;
+    font-size: 1rem; }
+
+.email_list {
+  margin-bottom: 3rem; }
 
 .form-check {
-  margin-bottom: 10px;
-  color: #fff; }
+  margin-bottom: 1.25rem;
+  color: #111827;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  transition: all 0.2s; }
+  .form-check:hover {
+    border-color: #4f46e5;
+    background-color: rgba(79, 70, 229, 0.02); }
+  .form-check label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05rem; }
+  .form-check input[type="radio"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: #4f46e5;
+    margin: 0; }
+
+.badge-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto; }
 
 .badge {
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
   font-size: 0.75rem;
-  margin-left: 5px; }
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em; }
 
 .badge-success {
-  background: #28a745; }
+  background: #dcfce7;
+  color: #166534; }
 
 .badge-warning {
-  background: #ffc107;
-  color: #000; }
+  background: #fef9c3;
+  color: #854d0e; }
 
 .badge-primary {
-  background: #007bff; }
+  background: #dbeafe;
+  color: #1e40af; }
 
 .form-actions {
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 20px; }
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(229, 231, 235, 0.5); }
+  .form-actions .btn {
+    flex: 1;
+    min-width: 140px; }
+
+.my-4 {
+  margin-top: 3.5rem !important;
+  margin-bottom: 3.5rem !important;
+  border: 0;
+  border-top: 2px solid #e5e7eb;
+  opacity: 0.5; }
+
+.add_email .btn-full {
+  width: 100%;
+  margin-top: 0.5rem; }
+
+.add_email label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #111827; }
 
 .form-field {
-  margin-bottom: 15px; }
+  margin-bottom: 1.5rem; }
+  .form-field input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.625rem;
+    font-size: 1rem;
+    color: #111827;
+    transition: all 0.2s; }
+    .form-field input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
 
-.form-field input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff; }
+.error-messages {
+  background: #fff5f5;
+  border-left: 4px solid #ef4444;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem; }
+  .error-messages .error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem; }

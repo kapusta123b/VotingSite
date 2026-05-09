@@ -1,9 +1,0 @@
-@import 'variables';
-.section-padding { padding: 80px 0; }
-.container-narrow { max-width: 600px; margin: 0 auto; padding: 0 20px; }
-.auth-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 12px; padding: 40px; border: 1px solid rgba(255, 255, 255, 0.1); }
-.auth-header h1, .auth-header h2 { color: #fff; margin-bottom: 15px; }
-.auth-header p { color: rgba(255, 255, 255, 0.7); margin-bottom: 20px; }
-.form-check { margin-bottom: 10px; color: #fff; }
-.social-provider { font-weight: bold; }
-.social-login-buttons { display: flex; flex-direction: column; gap: 10px; }

@@ -151,11 +151,16 @@
 
                             <div class="card-footer">
                                 <div class="card-footer-actions">
-                                    {% if request.user.is_authenticated and question.id in polls_voted_ids %}
-                                        <span class="btn btn-voted disabled">Voted</span>
+                                    
+                                    {% if question.id in polls_voted_ids %}
+
+                                        <span class="btn btn-sm btn-voted disabled">Voted</span>
                                         <a href="{% url "polls:results" question.category.slug question.id %}" class="btn btn-primary btn-sm btn-results">Results</a>
+
                                     {% else %}
+
                                         <a href="{% url "polls:detail" question.category.slug question.id %}" class="btn btn-primary btn-sm btn-vote-now">Vote Now</a>
+
                                     {% endif %}
                                 </div>
                             </div>
