@@ -11,7 +11,7 @@
   <tr>
     <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/7f36c5d3-a8e5-4804-adbb-d0b348156afc" /></td>
     <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/446c2bbe-e058-40c9-94b0-2a94de6cc7b8" /></td>
-    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/c639fb0b-bcb4-4f23-907d-21dda458b2ba" /></td>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/8d2edb2c-0b03-4b39-a66b-0e93f634103a" /></td>
   </tr>
 </table>
 
@@ -23,7 +23,7 @@ A Django-based voting platform designed for creating polls.
 - **Mandatory Email Verification**: Secure registration flow with HTML email notifications.
 - **Social OAuth**: Seamless authentication via Google and GitHub.
 - **User System**: Custom user model with vote history and verified profile updates.
-- **Responsive UI**: Fully custom-styled account pages using SASS/SCSS.
+- **UI**: Fully custom-styled account pages using SASS/SCSS.
 
 ## Tech Stack
 - ![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white) **Backend**: Django 6.x
