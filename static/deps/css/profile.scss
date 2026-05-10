@@ -1,7 +1,7 @@
 @import 'variables';
 
 .profile-card, .user-polls-section {
-    background: $white !important;
+    background: $card-bg !important;
     color: $text;
     border-radius: 2rem;
     padding: 3rem;
@@ -13,6 +13,10 @@
     }
 }
 
+[data-theme="dark"] .profile-card, [data-theme="dark"] .user-polls-section {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
 .profile-card {
     .profile-header-main {
         display: flex;
@@ -20,19 +24,19 @@
         gap: 2rem;
         margin-bottom: 2.5rem;
 
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            background: $primary;
-            border-radius: 50%;
-            color: $white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            box-shadow: 0 0 20px rgba(79, 70, 229, 0.2);
-        }
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        background: $primary;
+        border-radius: 50%;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        box-shadow: 0 0 20px rgba(79, 70, 229, 0.2);
+    }
 
         h1 { color: $text; margin-bottom: 0; }
 
@@ -72,44 +76,17 @@
         }
     }
 
-    .form-control {
-        width: 100%;
-        padding: 0.625rem 1rem;
-        background: $white;
-        border: 1px solid $border;
-        border-radius: 0.5rem;
-        color: $text;
-        font-size: 1rem;
-        margin-top: 0.25rem;
-        transition: all $transition-speed ease;
-
-        &:focus {
-            outline: none;
-            border-color: $primary;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-    }
-
     .profile-actions {
         margin-top: 3rem;
         display: flex;
         gap: 1rem;
 
         .btn-logout {
-            color: #ef4444;
-            border-color: rgba(239, 68, 68, 0.2);
+            color: $danger;
+            border-color: $danger;
+            background: transparent;
             &:hover {
-                background-color: rgba(239, 68, 68, 0.05);
-                border-color: #ef4444;
-            }
-        }
-        
-        .btn-outline {
-            color: $text;
-            border-color: $border;
-            &:hover {
-                background: $bg;
-                border-color: darken($border, 10%);
+                background-color: $danger-bg;
             }
         }
     }
@@ -132,7 +109,7 @@
     }
 
     .user-poll-item {
-        background: $white;
+        background: $card-bg;
         padding: 1.25rem 1.5rem;
         border-radius: 1rem;
         border: 1px solid $border;
@@ -142,7 +119,7 @@
         transition: all $transition-speed ease;
 
         &:hover {
-            background: $bg;
+            background: $subtle-bg;
             border-color: $primary;
             transform: translateX(5px);
         }

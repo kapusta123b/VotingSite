@@ -1,33 +1,78 @@
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-dark: #312e81;
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --text-light: #64748b;
+  --card-bg: #ffffff;
+  --card-bg-hover: #fcfcfc;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --subtle-bg: rgba(0, 0, 0, 0.03);
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-text: #059669;
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.05);
+  --white: #ffffff;
+  --pure-white: #ffffff;
+  --dark: #0f172a;
+  --footer-bg: #0f172a;
+  --profile-card-bg: #ffffff;
+  --nav-bg: #ffffff;
+  --hero-gradient: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%); }
+
+[data-theme="dark"] {
+  --bg: #020617;
+  --text: #f8fafc;
+  --text-light: #94a3b8;
+  --card-bg: #0f172a;
+  --card-bg-hover: #1e293b;
+  --border: #1e293b;
+  --border-hover: #334155;
+  --subtle-bg: rgba(255, 255, 255, 0.05);
+  --nav-bg: #0f172a;
+  --white: #f8fafc;
+  --pure-white: #ffffff;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-dark: #3730a3;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-text: #34d399;
+  --danger-bg: rgba(239, 68, 68, 0.15);
+  --hero-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%); }
+
 .auth-container {
   max-width: 450px;
   margin: 4rem auto;
   padding: 0 1rem; }
   .auth-container .auth-card {
-    background: #ffffff;
+    background: var(--card-bg);
     padding: 2.5rem;
     border-radius: 1.25rem;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb; }
+    border: 1px solid var(--border); }
     .auth-container .auth-card .auth-header {
       text-align: center;
       margin-bottom: 2rem; }
       .auth-container .auth-card .auth-header h1 {
         font-size: 1.75rem;
         margin-bottom: 0.5rem;
-        color: #111827; }
+        color: var(--text); }
       .auth-container .auth-card .auth-header p {
-        color: #6b7280; }
+        color: var(--text-light); }
     @media (max-width: 768px) {
       .auth-container .auth-card {
         padding: 1.5rem; } }
 .error-messages {
-  background: #fff5f5;
-  border-left: 4px solid #ff4d4d;
+  background: var(--danger-bg);
+  border-left: 4px solid var(--danger);
   padding: 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem; }
   .error-messages .error {
-    color: #ff4d4d;
+    color: var(--danger);
     margin: 0;
     font-size: 0.875rem;
     font-weight: 500; }
@@ -39,26 +84,27 @@
     font-weight: 600;
     margin-bottom: 0.5rem;
     font-size: 0.875rem;
-    color: #111827; }
+    color: var(--text); }
   .form-field .form-input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
+    background-color: var(--card-bg);
     border-radius: 0.625rem;
     font-size: 1rem;
-    color: #000;
+    color: var(--text);
     transition: all 0.2s; }
     .form-field .form-input:focus {
       outline: none;
-      border-color: #4f46e5;
+      border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
     .form-field .form-input.is-invalid {
-      border-color: #ff4d4d; }
+      border-color: var(--danger); }
 
 .field-errors {
   margin-top: 0.5rem; }
   .field-errors .error-item {
-    color: #ff4d4d;
+    color: var(--danger);
     font-size: 0.8125rem;
     display: flex;
     align-items: center;
@@ -79,12 +125,12 @@
   align-items: center;
   text-align: center;
   margin: 1.5rem 0;
-  color: #6b7280;
+  color: var(--text-light);
   font-size: 0.875rem; }
   .social-login-separator::before, .social-login-separator::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid #e5e7eb; }
+    border-bottom: 1px solid var(--border); }
   .social-login-separator span {
     padding: 0 10px; }
 
@@ -99,10 +145,10 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
     border-radius: 0.625rem;
     text-decoration: none;
-    color: #111827;
+    color: var(--text);
     font-weight: 500;
     font-size: 0.9rem;
     transition: all 0.2s; }
@@ -111,15 +157,15 @@
       height: 24px; }
     .social-login-container .btn-social:hover {
       background: rgba(0, 0, 0, 0.02);
-      border-color: #4f46e5; }
+      border-color: var(--primary); }
 
 .form-footer {
   margin-top: 1.5rem;
   text-align: center;
   font-size: 0.875rem;
-  color: #6b7280; }
+  color: var(--text-light); }
   .form-footer a {
-    color: #4f46e5;
+    color: var(--primary);
     font-weight: 600; }
     .form-footer a:hover {
-      color: #4338ca; }
+      color: var(--primary-hover); }

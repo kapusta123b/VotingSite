@@ -22,10 +22,11 @@
             border-radius: 0.75rem;
             cursor: pointer;
             transition: all $transition-speed;
+            background: $card-bg;
 
             &:hover {
                 border-color: $primary;
-                background-color: #f5f3ff;
+                background-color: $subtle-bg;
             }
 
             input[type="radio"] {
@@ -51,7 +52,7 @@
             flex: 1;
             opacity: 0.6;
             background-color: #6c757d;
-            color: $white;
+            color: var(--white);
             border: none;
             cursor: not-allowed;
         }
@@ -100,8 +101,9 @@
     gap: 0.35rem;
     color: $text-light;
     padding: 0.25rem 0.625rem;
-    background: rgba(0, 0, 0, 0.04);
+    background: $subtle-bg;
     border-radius: 8px;
+    border: 1px solid $border;
 
     svg {
         opacity: 0.6;
@@ -138,8 +140,8 @@
 }
 
 .error-alert {
-    background: #fef2f2;
-    border: 1px solid #fee2e2;
+    background: $danger-bg;
+    border: 1px solid rgba(239, 68, 68, 0.2);
     color: $danger;
     padding: 1rem;
     border-radius: 0.5rem;
@@ -164,7 +166,7 @@
     }
 
     .related-card {
-        background: $white;
+        background: $card-bg;
         border: 1px solid $border;
         border-radius: 1rem;
         padding: 1.5rem;

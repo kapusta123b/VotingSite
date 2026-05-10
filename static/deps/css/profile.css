@@ -1,13 +1,61 @@
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-dark: #312e81;
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --text-light: #64748b;
+  --card-bg: #ffffff;
+  --card-bg-hover: #fcfcfc;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --subtle-bg: rgba(0, 0, 0, 0.03);
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-text: #059669;
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.05);
+  --white: #ffffff;
+  --pure-white: #ffffff;
+  --dark: #0f172a;
+  --footer-bg: #0f172a;
+  --profile-card-bg: #ffffff;
+  --nav-bg: #ffffff;
+  --hero-gradient: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%); }
+
+[data-theme="dark"] {
+  --bg: #020617;
+  --text: #f8fafc;
+  --text-light: #94a3b8;
+  --card-bg: #0f172a;
+  --card-bg-hover: #1e293b;
+  --border: #1e293b;
+  --border-hover: #334155;
+  --subtle-bg: rgba(255, 255, 255, 0.05);
+  --nav-bg: #0f172a;
+  --white: #f8fafc;
+  --pure-white: #ffffff;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-dark: #3730a3;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-text: #34d399;
+  --danger-bg: rgba(239, 68, 68, 0.15);
+  --hero-gradient: radial-gradient(circle at center, #0f172a 0%, #020617 100%); }
+
 .profile-card, .user-polls-section {
-  background: #ffffff !important;
-  color: #111827;
+  background: var(--card-bg) !important;
+  color: var(--text);
   border-radius: 2rem;
   padding: 3rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
   @media (max-width: 768px) {
     .profile-card, .user-polls-section {
       padding: 2rem 1.5rem; } }
+[data-theme="dark"] .profile-card, [data-theme="dark"] .user-polls-section {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+
 .profile-card .profile-header-main {
   display: flex;
   align-items: center;
@@ -16,7 +64,7 @@
   .profile-card .profile-header-main .profile-avatar {
     width: 100px;
     height: 100px;
-    background: #4f46e5;
+    background: var(--primary);
     border-radius: 50%;
     color: #ffffff;
     display: flex;
@@ -26,7 +74,7 @@
     font-weight: 800;
     box-shadow: 0 0 20px rgba(79, 70, 229, 0.2); }
   .profile-card .profile-header-main h1 {
-    color: #111827;
+    color: var(--text);
     margin-bottom: 0; }
   @media (max-width: 768px) {
     .profile-card .profile-header-main {
@@ -37,10 +85,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
   padding-top: 2.5rem; }
   .profile-card .profile-details-grid .profile-info-column .info-label {
-    color: #6b7280;
+    color: var(--text-light);
     font-size: 0.875rem;
     display: block;
     text-transform: uppercase;
@@ -48,43 +96,22 @@
     margin-bottom: 0.25rem; }
   .profile-card .profile-details-grid .profile-info-column .info-value {
     font-weight: 600;
-    color: #111827;
+    color: var(--text);
     font-size: 1.125rem; }
   @media (max-width: 480px) {
     .profile-card .profile-details-grid {
       grid-template-columns: 1fr;
       gap: 2rem; } }
-.profile-card .form-control {
-  width: 100%;
-  padding: 0.625rem 1rem;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  color: #111827;
-  font-size: 1rem;
-  margin-top: 0.25rem;
-  transition: all 0.2s ease; }
-  .profile-card .form-control:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
-
 .profile-card .profile-actions {
   margin-top: 3rem;
   display: flex;
   gap: 1rem; }
   .profile-card .profile-actions .btn-logout {
-    color: #ef4444;
-    border-color: rgba(239, 68, 68, 0.2); }
+    color: var(--danger);
+    border-color: var(--danger);
+    background: transparent; }
     .profile-card .profile-actions .btn-logout:hover {
-      background-color: rgba(239, 68, 68, 0.05);
-      border-color: #ef4444; }
-  .profile-card .profile-actions .btn-outline {
-    color: #111827;
-    border-color: #e5e7eb; }
-    .profile-card .profile-actions .btn-outline:hover {
-      background: #f9fafb;
-      border-color: #c8ccd5; }
+      background-color: var(--danger-bg); }
 
 .user-polls-section {
   margin-top: 2.5rem; }
@@ -92,34 +119,34 @@
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 2rem;
-    color: #111827; }
+    color: var(--text); }
   .user-polls-section .user-polls-list {
     display: flex;
     flex-direction: column;
     gap: 1rem; }
   .user-polls-section .user-poll-item {
-    background: #ffffff;
+    background: var(--card-bg);
     padding: 1.25rem 1.5rem;
     border-radius: 1rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.2s ease; }
     .user-polls-section .user-poll-item:hover {
-      background: #f9fafb;
-      border-color: #4f46e5;
+      background: var(--subtle-bg);
+      border-color: var(--primary);
       transform: translateX(5px); }
     .user-polls-section .user-poll-item .user-poll-link {
       font-size: 1.125rem;
       font-weight: 600;
-      color: #111827;
+      color: var(--text);
       text-decoration: none; }
       .user-polls-section .user-poll-item .user-poll-link:hover {
-        color: #4f46e5; }
+        color: var(--primary); }
     .user-polls-section .user-poll-item .user-poll-date {
       font-size: 0.875rem;
-      color: #6b7280; }
+      color: var(--text-light); }
     @media (max-width: 480px) {
       .user-polls-section .user-poll-item {
         flex-direction: column;

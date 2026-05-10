@@ -14,7 +14,7 @@
 
     .category-tag {
         padding: 0.5rem 1.25rem;
-        background: white;
+        background: $card-bg;
         border: 1px solid $border;
         border-radius: 9999px;
         font-weight: 500;
@@ -22,7 +22,7 @@
 
         &:hover, &.active {
             background: $primary;
-            color: white;
+            color: #ffffff;
             border-color: $primary;
         }
     }
@@ -99,7 +99,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: white;
+        background: $card-bg;
         transform: translateY(100%);
         opacity: 0;
         transition: all 0.4s ease;
@@ -132,8 +132,8 @@
     text-transform: uppercase;
 
     &-new {
-        background-color: #ecfdf5;
-        color: #059669;
+        background-color: $success-bg;
+        color: $success-text;
     }
 }
 
@@ -164,11 +164,12 @@
     grid-column: 1 / -1;
     text-align: center;
     padding: 4rem;
-    background: white;
+    background: $card-bg;
     border-radius: 1rem;
     border: 2px dashed $border;
 
     &-text {
         font-size: 1.125rem;
+        color: $text;
     }
 }

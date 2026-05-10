@@ -3,7 +3,7 @@
 .create-poll-container {
     max-width: 700px;
     margin: 0 auto;
-    background: $white;
+    background: $card-bg;
     padding: 2.5rem;
     border-radius: 1.25rem;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
@@ -15,12 +15,13 @@
         border: 1px solid $border;
         border-radius: 0.75rem;
         font-size: 1rem;
-        background-color: #fff;
+        background-color: $card-bg;
         color: $text;
         transition: all $transition-speed;
 
         &::placeholder {
-            color: lighten($text-light, 15%);
+            color: $text-light;
+            opacity: 0.5;
         }
 
         &:focus {
@@ -48,11 +49,11 @@
 }
 
 .choices-section {
-    background: $bg;
+    background: $subtle-bg;
     padding: 1.75rem;
     border-radius: 1rem;
     margin-bottom: 2.5rem;
-    border: 1px solid darken($bg, 3%);
+    border: 1px solid $border;
 
     .choices-header {
         display: flex;
@@ -69,7 +70,7 @@
             font-size: 0.875rem; 
             font-weight: 500;
             color: $text-light;
-            background: $white;
+            background: $card-bg;
             padding: 0.25rem 0.75rem;
             border-radius: 2rem;
             border: 1px solid $border;
@@ -88,7 +89,7 @@
             animation: slideIn 0.3s $transition-bounce;
 
             .form-input {
-                background-color: $white;
+                background-color: $card-bg;
                 flex: 1;
             }
         }
@@ -97,7 +98,7 @@
 
 .btn-remove-choice {
     background: transparent;
-    color: lighten($text-light, 10%);
+    color: $text-light;
     border: 1px solid $border;
     width: 38px;
     height: 38px;
@@ -110,9 +111,9 @@
     transition: all $transition-speed;
 
     &:hover {
-        background-color: #fef2f2;
+        background-color: rgba(239, 68, 68, 0.1);
         color: $danger;
-        border-color: #fee2e2;
+        border-color: rgba(239, 68, 68, 0.2);
     }
 }
 
