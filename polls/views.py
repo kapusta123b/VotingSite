@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from polls.forms import CreatePollForm, VotePollForm
 from polls.models import Question
+from polls.utils import q_search
 
 
 class MainPollsView(ListView):
@@ -22,6 +23,9 @@ class MainPollsView(ListView):
     def get_queryset(self):
         user = self.request.user
         filter_type = self.request.GET.get("filter")
+        sort = self.request.GET.get("sort")
+        category = self.request.GET.get('category_slug')
+        search = self.request.GET.get('search')
 
         if filter_type == "user":
             queryset = Question.objects.user_polls(user)
@@ -32,11 +36,14 @@ class MainPollsView(ListView):
         else:
             queryset = Question.objects.community_polls(user)
 
-        return (
-            queryset.select_related("category", "creator")
-            .by_category(self.kwargs.get('category_slug'))
-            .sorted_by(self.request.GET.get("sort"))
-        )
+        queryset = (queryset.select_related("category", "creator")
+            .by_category(category)
+            .sorted_by(sort))
+        
+        if search:
+            return q_search(query=search, queryset=queryset)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

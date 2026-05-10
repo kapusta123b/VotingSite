@@ -20,6 +20,33 @@
 
             <p class="page-subtitle">Discover what the world is thinking. Vote on topics that matter to you.</p>
 
+            <div class="search-wrapper mb-4">
+                <form action="{% url "polls:index" category_slug %}" method="get" class="search-form-hero">
+                    {% if request.GET.filter %}
+                        <input type="hidden" name="filter" value="{{ request.GET.filter }}">
+                    {% endif %}
+                    {% if request.GET.sort %}
+                        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
+                    {% endif %}
+                    
+                    <div class="search-input-container">
+                        <span class="search-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </span>
+                        <input type="text" name="search" class="search-input" placeholder="Search for polls, topics or creators..." value="{{ request.GET.search|default:'' }}">
+                        {% if request.GET.search %}
+                            <a href="?{% url_replace search='' %}" class="search-clear" title="Clear search">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+
             <div class="categories-filter">
 
                 {% tag_categories as categories %}
@@ -38,9 +65,10 @@
                 <div class="filter-group">
                     <form action="{% url "polls:index" category_slug %}" method='get' id="filter-form">
                         {% if request.GET.sort %}
-                        
                             <input type="hidden" name='sort' value='{{ request.GET.sort }}'>
-                        
+                        {% endif %}
+                        {% if request.GET.search %}
+                            <input type="hidden" name='search' value='{{ request.GET.search }}'>
                         {% endif %}
                         <div class="filter-glider"></div>
                         <button name="filter" value="community" class="filter-btn {% if request.GET.filter != 'user' and request.GET.filter != 'voted' %}active{% endif %}">Community Polls</button>
@@ -56,9 +84,10 @@
                 <div class="sort-group">
                     <form class="sort-form" action='{% url "polls:index" category_slug %}'  method='get'>
                         {% if request.GET.filter %}
-
                             <input type="hidden" name='filter' value='{{ request.GET.filter }}'>
-                        
+                        {% endif %}
+                        {% if request.GET.search %}
+                            <input type="hidden" name='search' value='{{ request.GET.search }}'>
                         {% endif %}
                         <select name="sort" class="sort-select" onchange="this.form.submit()">
 
