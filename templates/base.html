@@ -7,13 +7,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}Votely | Decisions Made Together{% endblock %}</title>
         <script>
-
             (function() {
                 const theme = localStorage.getItem('theme') || 
                             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', theme);
+
+                // Watch for ReCaptcha to apply theme before it renders
+                const observer = new MutationObserver((mutations) => {
+                    for (const mutation of mutations) {
+                        for (const node of mutation.addedNodes) {
+                            if (node.classList && node.classList.contains('g-recaptcha')) {
+                                node.setAttribute('data-theme', theme);
+                                observer.disconnect();
+                            } else if (node.querySelector) {
+                                const captcha = node.querySelector('.g-recaptcha');
+                                if (captcha) {
+                                    captcha.setAttribute('data-theme', theme);
+                                    observer.disconnect();
+                                }
+                            }
+                        }
+                    }
+                });
+                observer.observe(document.documentElement, { childList: true, subtree: true });
             })();
-            
         </script>
         {% load sass_tags %}
         <link rel="stylesheet" href="{% sass_src "deps/css/base.scss" %}">

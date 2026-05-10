@@ -7,6 +7,7 @@ from django.contrib.auth.forms import (
 from django.core.exceptions import ValidationError
 
 from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha import widgets
 
 from user.models import User
 
@@ -14,11 +15,23 @@ from user.models import User
 from allauth.account.forms import LoginForm, SignupForm
 
 class UserLoginForm(LoginForm):
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(
+        widget=widgets.ReCaptchaV2Checkbox(
+            attrs={
+                'data-theme': 'light',
+            }
+        )
+    )
 
 
 class UserSignUpForm(SignupForm):
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(
+        widget=widgets.ReCaptchaV2Checkbox(
+            attrs={
+                'data-theme': 'light',
+            }
+        )
+    )
 
 class UserUpdateProfileForm(UserChangeForm):
     password = None

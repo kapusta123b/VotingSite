@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.documentElement.setAttribute('data-theme', targetTheme);
             localStorage.setItem('theme', targetTheme);
+
+            if (window.grecaptcha && document.querySelector('.g-recaptcha')) {
+                location.reload(); 
+            }
         });
     }
 });

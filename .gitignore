@@ -13,6 +13,8 @@ migrations/
 
 #static
 staticfiles/
+static/deps/css/*.css
+!static/deps/css/*.scss
 
 #db
 *.sqlite3
