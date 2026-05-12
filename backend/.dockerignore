@@ -9,3 +9,6 @@ sets/
 .env.prod
 
 Dockerfile
+
+README.md
+LICENSE
