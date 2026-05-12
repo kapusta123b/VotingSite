@@ -1,0 +1,56 @@
+[
+  {
+    "model": "polls.choice",
+    "pk": 1,
+    "fields": {
+      "question": 50,
+      "choice_text": "Python",
+      "votes": 10
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 2,
+    "fields": {
+      "question": 50,
+      "choice_text": "JavaScript",
+      "votes": 5
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 3,
+    "fields": {
+      "question": 51,
+      "choice_text": "Brazil",
+      "votes": 20
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 4,
+    "fields": {
+      "question": 51,
+      "choice_text": "France",
+      "votes": 15
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 5,
+    "fields": {
+      "question": 52,
+      "choice_text": "NASA",
+      "votes": 30
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 6,
+    "fields": {
+      "question": 52,
+      "choice_text": "SpaceX",
+      "votes": 50
+    }
+  }
+]

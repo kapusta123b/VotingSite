@@ -1,21 +1,17 @@
-# environmets
+# environments
 .venv
 venv
-env
 .env
 
-#cache
+# cache
 __pycache__/
 
-#migration
+# migrations
 migrations/
 
-
-#static
+# static
 staticfiles/
-static/deps/css/*.css
-!static/deps/css/*.scss
+backend/static/deps/css/*.css
 
-#db
+# db
 *.sqlite3
-

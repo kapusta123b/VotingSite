@@ -1,0 +1,11 @@
+.vscode
+.idea
+
+.venv/
+venv/
+sets/
+
+.env.dev
+.env.prod
+
+Dockerfile

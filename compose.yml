@@ -1,0 +1,74 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+
+    image: web:1.0.0
+
+    expose:
+      - 8000
+
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
+
+    environment:
+      - SECRET_KEY
+      - ALLOWED_HOSTS
+      - CSRF_TRUSTED_ORIGINS
+      - DEBUG=False
+      - DB_NAME
+      - DB_USER
+      - DB_PASS
+      - DB_HOST=db
+      - DB_PORT
+      - RECAPTCHA_PUBLIC_KEY
+      - RECAPTCHA_PRIVATE_KEY
+      - EMAIL_NAME
+      - EMAIL_APP_PASSWORD
+
+    volumes:
+      - static_volume:/app/staticfiles
+
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-bookworm
+    volumes:
+      - data:/var/lib/postgresql/data/
+
+    restart: unless-stopped
+
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASS}
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    image: nginx:alpine-slim
+
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - static_volume:/app/staticfiles
+      - ./backend/media:/app/media
+
+    ports:
+      - 80:80
+
+    restart: unless-stopped
+
+    depends_on:
+      - web
+
+volumes:
+  data:
+  static_volume:

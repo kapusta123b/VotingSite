@@ -1,11 +1,8 @@
 # VotingSite
 
-![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
+![Python Version](https://img.shields.io/badge/python-3.13-blue.svg)
 ![Django Version](https://img.shields.io/badge/django-6.0-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
-
-
 
 <table>
   <tr>
@@ -15,73 +12,183 @@
   </tr>
 </table>
 
-A Django-based voting platform designed for creating polls.
-
-## Key Features
-- **Polls Management**: Categories, questions, and multiple-choice.
-- **Advanced Authentication**: Secure login, registration, and password recovery powered by `django-allauth`.
-- **Mandatory Email Verification**: Secure registration flow with HTML email notifications.
-- **Social OAuth**: Seamless authentication via Google and GitHub.
-- **User System**: Custom user model with vote history and verified profile updates.
-- **UI**: Fully custom-styled account pages using SASS/SCSS.
+A Django-based voting platform for creating and voting on polls.
 
 ## Tech Stack
-- ![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white) **Backend**: Django 6.x
-- ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=flat&logo=sass&logoColor=white) **Frontend**: SASS, JavaScript
-- ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=flat&logo=sqlite&logoColor=white) **Database**: SQLite
 
-## Setup & Configuration
+- **Backend**: Django 6, Gunicorn
+- **Database**: PostgreSQL 16
+- **Frontend**: SASS/SCSS, JavaScript
+- **Auth**: django-allauth (Google, GitHub OAuth)
+- **Server**: nginx
+- **Deployment**: Docker + Docker Compose
 
-### 1. Environment Variables
-Create a `.env` file in the root directory:
-```ini
-SECRET_KEY=your_django_secret_key
-RECAPTCHA_PUBLIC_KEY=your_recaptcha_key
-RECAPTCHA_PRIVATE_KEY=your_recaptcha_secret
-EMAIL_NAME=your_gmail_address
-EMAIL_APP_PASSWORD=your_16_digit_app_password
+---
+
+## Local Development
+
+```bash
+git clone https://github.com/YOUR_USERNAME/VotingSite.git
+cd VotingSite
+
+nano backend/.env   # fill in your values
+
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r ../requirements.txt
+
+python manage.py migrate
+python manage.py loaddata fixtures/user/users.json
+python manage.py loaddata fixtures/polls/polls_Category.json
+python manage.py loaddata fixtures/polls/polls_Question.json
+python manage.py loaddata fixtures/polls/polls_Choice.json
+
+python manage.py runserver
 ```
 
-### 2. Social OAuth Setup
+Site available at `http://localhost:8000`
 
-#### Google Integration
-1. Go to [Google Cloud Console](https://console.cloud.google.com/).
-2. Create a project and navigate to **APIs & Services > Credentials**.
-3. Configure the **OAuth Consent Screen** (set User Type to External).
-4. Click **Create Credentials > OAuth client ID**.
-5. Select **Web application** and add this Authorized Redirect URI:
-   `http://<your URL>/accounts/google/login/callback/`
-6. Copy the **Client ID** and **Client Secret**.
+---
 
-#### GitHub Integration
-1. Go to **Settings > Developer settings > OAuth Apps** on GitHub.
-2. Click **New OAuth App**.
-3. Set **Homepage URL** to `https://<your URL>`.
-4. Set **Authorization callback URL** to:
-   `https://<your URL>accounts/github/login/callback/`
-5. Click **Register application** and generate a new **Client Secret**.
+## Deployment
 
-#### Django Admin Configuration
-1. Login to your admin panel (`/admin`).
-2. Go to **Social Accounts > Social Applications > Add**.
-3. Select the Provider (Google/GitHub).
-4. Paste your **Client ID** and **Secret Key**.
-5. Well done!
+### 1. Install Docker on your server
 
-### 3. Running the Project
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+sudo apt update && sudo apt upgrade -y
 
-# Compile SCSS
-python manage.py compilescss
+sudo apt install -y ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-# Run migrations
-python manage.py migrate
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+  https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Load test data (fixtures)
-python manage.py loaddata polls/fixtures/questions.json
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-# Start server
-python manage.py runserver
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+### 2. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/VotingSite.git
+cd VotingSite
+```
+
+### 3. Configure environment
+
+Fill in `sets/set_env.sh` with real values and export:
+
+```bash
+nano sets/set_env.sh
+source sets/set_env.sh
+```
+
+### 4. Configure nginx
+
+Set your server IP or domain in `conf.d/nginx.conf`:
+
+```nginx
+server_name YOUR_SERVER_IP_OR_DOMAIN;
+```
+
+### 5. Launch
+
+```bash
+docker compose build --no-cache
+docker compose up -d
+```
+
+Check logs:
+```bash
+docker compose logs -f web
+docker compose logs -f nginx
+docker compose logs -f db
+```
+
+---
+
+## Social OAuth (Google / GitHub)
+
+Configure after the site is running.
+
+#### Google
+
+1. [Google Cloud Console](https://console.cloud.google.com/) → **APIs & Services → Credentials**
+2. Create **OAuth client ID → Web application**
+3. Add Authorized Redirect URI: `http://YOUR_DOMAIN/accounts/google/login/callback/`
+4. Copy Client ID and Secret
+
+#### GitHub
+
+1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
+2. Homepage URL: `http://YOUR_DOMAIN`
+3. Callback URL: `http://YOUR_DOMAIN/accounts/github/login/callback/`
+4. Generate Client Secret
+
+#### Add in Django Admin
+
+1. Open `http://YOUR_DOMAIN/admin` → login `creator1` / `Creator1!`
+2. **Social Accounts → Social Applications → Add**
+3. Add each provider, paste Client ID + Secret, move site to "Chosen sites"
+
+---
+
+## Default credentials
+
+| Login | Password | Role |
+|-------|----------|------|
+| `creator1` | `Creator1!` | Superuser |
+| `test_user1` | `TestUser1!` | Regular user |
+
+Change passwords after first login:
+```bash
+docker compose exec web python manage.py changepassword creator1
+```
+
+---
+
+## Useful commands
+
+```bash
+docker compose down              # stop (data preserved)
+docker compose down -v           # stop + delete database
+
+docker compose build && docker compose up -d   # rebuild after code changes
+
+docker compose exec web python manage.py shell
+docker compose exec db psql -U voting_user -d voting_db
+```
+
+---
+
+## Project structure
+
+```
+VotingSite/
+├── compose.yml
+├── requirements.txt
+├── .env.example
+├── conf.d/
+│   └── nginx.conf
+├── sets/
+│   ├── set_env.sh       # fill in and source before deploying
+│   └── del_env.sh       # clears exported vars from shell
+└── backend/
+    ├── Dockerfile
+    ├── entrypoint.sh
+    ├── app/
+    ├── polls/
+    ├── user/
+    ├── main/
+    ├── templates/
+    ├── static/
+    ├── media/
+    └── fixtures/
 ```
