@@ -13,6 +13,8 @@ echo "PostgreSQL started"
 
 python manage.py compilescss
 python manage.py collectstatic --noinput
+python manage.py makemigrations polls
+python manage.py makemigrations user
 python manage.py migrate
 python manage.py loaddata fixtures/user/users.json
 python manage.py loaddata fixtures/polls/polls_Category.json
