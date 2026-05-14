@@ -69,10 +69,10 @@ class Question(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
     creator = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
-        related_name="polls_create",
         null=True,
+        blank=True
     )
     views_count = models.IntegerField(default=0, null=True)
 
