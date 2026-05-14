@@ -2,55 +2,149 @@
   {
     "model": "polls.choice",
     "pk": 1,
-    "fields": {
-      "question": 50,
-      "choice_text": "Python",
-      "votes": 10
-    }
+    "fields": { "question": 50, "choice_text": "Python", "votes": 120 }
   },
   {
     "model": "polls.choice",
     "pk": 2,
-    "fields": {
-      "question": 50,
-      "choice_text": "JavaScript",
-      "votes": 5
-    }
+    "fields": { "question": 50, "choice_text": "JavaScript", "votes": 85 }
   },
   {
     "model": "polls.choice",
     "pk": 3,
-    "fields": {
-      "question": 51,
-      "choice_text": "Brazil",
-      "votes": 20
-    }
+    "fields": { "question": 50, "choice_text": "Rust", "votes": 45 }
   },
   {
     "model": "polls.choice",
     "pk": 4,
-    "fields": {
-      "question": 51,
-      "choice_text": "France",
-      "votes": 15
-    }
+    "fields": { "question": 51, "choice_text": "Argentina", "votes": 300 }
   },
   {
     "model": "polls.choice",
     "pk": 5,
-    "fields": {
-      "question": 52,
-      "choice_text": "NASA",
-      "votes": 30
-    }
+    "fields": { "question": 51, "choice_text": "France", "votes": 250 }
   },
   {
     "model": "polls.choice",
     "pk": 6,
+    "fields": { "question": 51, "choice_text": "Brazil", "votes": 280 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 7,
+    "fields": { "question": 52, "choice_text": "SpaceX", "votes": 500 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 8,
+    "fields": { "question": 52, "choice_text": "NASA", "votes": 150 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 9,
+    "fields": { "question": 52, "choice_text": "CNSA", "votes": 100 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 10,
+    "fields": { "question": 54, "choice_text": "PlayStation 5", "votes": 400 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 11,
+    "fields": { "question": 54, "choice_text": "Xbox Series X", "votes": 200 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 12,
+    "fields": { "question": 54, "choice_text": "Nintendo Switch", "votes": 350 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 13,
+    "fields": { "question": 56, "choice_text": "Yes, strictly", "votes": 210 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 14,
     "fields": {
-      "question": 52,
-      "choice_text": "SpaceX",
-      "votes": 50
+      "question": 56,
+      "choice_text": "No, let it evolve",
+      "votes": 180
     }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 15,
+    "fields": { "question": 61, "choice_text": "iOS", "votes": 150 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 16,
+    "fields": { "question": 61, "choice_text": "Android", "votes": 160 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 17,
+    "fields": { "question": 66, "choice_text": "Cat person", "votes": 450 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 18,
+    "fields": { "question": 66, "choice_text": "Dog person", "votes": 480 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 19,
+    "fields": { "question": 81, "choice_text": "Python", "votes": 200 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 20,
+    "fields": { "question": 81, "choice_text": "JavaScript", "votes": 150 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 21,
+    "fields": { "question": 82, "choice_text": "Remote", "votes": 600 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 22,
+    "fields": { "question": 82, "choice_text": "Office", "votes": 100 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 23,
+    "fields": { "question": 83, "choice_text": "Lionel Messi", "votes": 700 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 24,
+    "fields": {
+      "question": 83,
+      "choice_text": "Cristiano Ronaldo",
+      "votes": 650
+    }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 25,
+    "fields": { "question": 84, "choice_text": "Marvel", "votes": 350 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 26,
+    "fields": { "question": 84, "choice_text": "DC", "votes": 200 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 27,
+    "fields": { "question": 95, "choice_text": "Dark Mode", "votes": 800 }
+  },
+  {
+    "model": "polls.choice",
+    "pk": 28,
+    "fields": { "question": 95, "choice_text": "Light Mode", "votes": 50 }
   }
 ]
