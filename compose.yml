@@ -9,7 +9,7 @@ services:
     expose:
       - 8000
 
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120 --reload
 
     environment:
       - SECRET_KEY
@@ -27,6 +27,7 @@ services:
       - EMAIL_APP_PASSWORD
 
     volumes:
+      - ./backend:/app
       - static_volume:/app/staticfiles
 
     restart: unless-stopped
