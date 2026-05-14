@@ -1,10 +1,10 @@
 from datetime import timedelta
 from functools import cached_property
 
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 
-from app import settings
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -112,7 +112,6 @@ class Question(models.Model):
         
         return False
 
-    from django.db import transaction
     # we use the atomic decorator for the function to avoid data loss.
     @transaction.atomic
     def vote(self, poll_id, user, choice) -> bool:

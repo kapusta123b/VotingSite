@@ -7,7 +7,7 @@ from django.conf import settings
 
 class User(AbstractUser):
     votes = models.IntegerField(default=0, null=True)
-    polls_voted = models.ManyToManyField("polls.Question", through="Vote")
+    polls_voted = models.ManyToManyField("polls.Question", blank=True)
 
     def __str__(self):
         return self.username
