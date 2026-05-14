@@ -77,7 +77,7 @@ newgrp docker
 ### 2. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/VotingSite.git
+git clone https://github.com/kapusta123b/VotingSite.git
 cd VotingSite
 ```
 
