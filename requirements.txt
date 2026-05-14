@@ -10,14 +10,13 @@ django-recaptcha==4.1.0
 django-sass-processor==1.4.2
 django_compressor==4.6.0
 djhtml==3.0.11
-dotenv==0.9.9
+python-dotenv==1.2.2
 idna==3.13
 libsass==0.23.0
 oauthlib==3.3.1
 psycopg2-binary==2.9.12
 pycparser==3.0
 PyJWT==2.12.1
-python-dotenv==1.2.2
 rcssmin==1.2.2
 requests==2.33.1
 rjsmin==1.2.5

@@ -5,8 +5,6 @@ venv
 # cache
 __pycache__/
 
-# migrations
-migrations/
 
 # static
 staticfiles/
