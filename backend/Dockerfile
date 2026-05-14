@@ -23,6 +23,6 @@ RUN chmod +x /app/entrypoint.sh
 RUN useradd -s /bin/sh -u 1234 nonroot
 RUN chown -R nonroot:nonroot /app
 
-USER nonroot
+USER root
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
