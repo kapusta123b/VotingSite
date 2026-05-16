@@ -114,15 +114,15 @@ server_name YOUR_SERVER_IP_OR_DOMAIN;
 ### 5. Launch
 
 ```bash
-docker compose build --no-cache
-docker compose up -d
+sudo docker compose build --no-cache
+sudo docker compose up -d
 ```
 
 Check logs:
 ```bash
-docker compose logs -f web
-docker compose logs -f nginx
-docker compose logs -f db
+sudo docker compose logs -f web
+sudo docker compose logs -f nginx
+sudo docker compose logs -f db
 ```
 
 ---
@@ -162,12 +162,12 @@ Configure after the site is running.
 
 Change passwords after first login:
 ```bash
-docker compose exec web python manage.py changepassword creator1
+sudo docker exec -it votingsite-web-1 python manage.py changepassword creator1
 ```
 
 Or create new:
 ```bash
-docker compose exec web python manage.py createsuperuser
+sudo docker exec -it votingsite-web-1 python manage.py createsuperuser
 ```
 
 ---
@@ -175,13 +175,13 @@ docker compose exec web python manage.py createsuperuser
 ## Useful commands
 
 ```bash
-docker compose down              # stop (data preserved)
-docker compose down -v           # stop + delete database
+sudo docker compose down              # stop (data preserved)
+sudo docker compose down -v           # stop + delete database
 
-docker compose build && docker compose up -d   # rebuild after code changes
+sudo docker compose build && docker compose up -d   # rebuild after code changes
 
-docker compose exec web python manage.py shell
-docker compose exec db psql -U voting_user -d voting_db
+sudo docker compose exec web python manage.py shell
+sudo docker compose exec db psql -U voting_user -d voting_db
 ```
 
 ---
