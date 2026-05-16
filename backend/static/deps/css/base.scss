@@ -56,11 +56,16 @@ ul {
 
 .hero {
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    padding: 4rem 0;
     text-align: center;
     background: $hero-gradient;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    
+    @media (max-width: $tablet) {
+        min-height: 60vh;
+    }
     
     h1 {
         font-size: 4rem;
@@ -98,6 +103,8 @@ nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 
     .logo h1 {
@@ -111,6 +118,15 @@ nav {
         display: flex;
         gap: 1.5rem;
         align-items: center;
+        flex-wrap: wrap;
+
+        @media (max-width: $tablet) {
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
 
         li a, .nav-link-btn {
             font-weight: 600;
@@ -122,6 +138,7 @@ nav {
             font-size: inherit;
             padding: 0;
             transition: all $transition-speed ease;
+            white-space: nowrap;
             &:hover { color: $primary; }
         }
 
@@ -179,8 +196,8 @@ nav {
 
     &-primary {
         background-color: $primary;
-        color: $pure-white;
-        &:hover { background-color: $primary-hover; transform: translateY(-1px); }
+        color: $pure-white !important;
+        &:hover { background-color: $primary-hover; color: $pure-white !important; transform: translateY(-1px); }
         &:active { transform: translateY(0); }
     }
 

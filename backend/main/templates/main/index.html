@@ -26,31 +26,100 @@
             </div>
 
             <div class="grid">
-                {% for poll in recent_polls %}
-                    <div class="card">
-                        <div class="card-header-absolute">
-                            <span class="category-label">{{ poll.category.category_name }}</span>
-                            {% if poll.was_published_recently %}
-                                <span class="badge badge-new">New</span>
-                            {% endif %}
-                        </div>
+                {% for question in recent_polls %}
+                        <div class="card">
 
-                        <div class="card-content-wrapper">
-                            <h3 class="card-title">{{ poll.question_text }}</h3>
-                            <p class="text-light-sm">Published on {{ poll.pub_date|date:"F j, Y" }}</p>
-                        </div>
+                            <div class="card-header-absolute">
+                                <div class="d-flex align-items-center gap-1">
+                                    <span class="category-label">{{ question.category.category_name }}</span>
+                                    {% if question.was_published_recently %}
 
-                        <div class="card-footer">
-                            <div class="card-footer-actions">
-                                {% if request.user.is_authenticated and poll in request.user.polls_voted.all %}
-                                    <span class="btn btn-voted disabled">Voted</span>
-                                    <a href="{% url "polls:results" poll.category.slug poll.id %}" class="btn btn-primary btn-sm btn-results">Results</a>
-                                {% else %}
-                                    <a href="{% url "polls:detail" poll.category.slug poll.id %}" class="btn btn-primary btn-sm btn-vote-now">Vote Now</a>
-                                {% endif %}
+                                        <span class="badge badge-new">NEW</span>
+                                    
+                                    {% endif %}
+                                </div>
+                                <div class="view-count-wrapper">
+                                    <span class="view-count">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                        </svg>
+                                        {{ question.views_count }}
+                                    </span>
+
+                                    {% if question.creator.id == user.id %}
+
+                                        <button class="delete-btn-trigger" title="Delete Poll">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                            </svg>
+                                        </button>
+                                        
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            <div class="card-content-wrapper">
+
+                                <h3 class="card-title">
+                                    <a class='card-title-link' href="{% url "polls:detail" question.category.slug question.id %}">{{ question.question_text }}</a>
+                                </h3>
+
+                                <div class="card-meta">
+                                    <p class="text-light-sm">Created {{ question.pub_date|timesince }} ago</p>
+                                    <div class="meta-bottom">
+                                        {% if question.creator.id == user.id %}
+
+                                            <span class="badge badge-your">YOUR</span>
+                                        
+                                        {% endif %}
+
+                                        {% if question.creator.id %}
+
+                                            <a href="{% url "user:profile" question.creator.id %}" class="creator-link">Created by {{ question.creator.username }}</a>
+                                        
+                                        {% else %}
+                                        
+                                            <span href="" class="creator-link">Created by Deleted User</span>
+                                        
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="delete-confirmation-overlay">
+                                <div class="delete-confirm-box">
+                                    <h4>Delete this poll?</h4>
+                                    <p>Please type <strong>{{ question.question_text }}</strong> to confirm.</p>
+                                    <input type="text" class="confirm-input" placeholder="Type question text here...">
+                                    <div class="confirm-actions">
+                                        <button class="btn-cancel">Cancel</button>
+                                        <form action="{% url "polls:delete" question.id %}" method='post'>
+                                            {% csrf_token %}
+                                            <button class="btn-delete-confirm" disabled>Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="card-footer-actions">
+                                    
+                                    {% if question.id in polls_voted_ids %}
+
+                                        <span class="btn btn-sm btn-voted disabled">Voted</span>
+                                        <a href="{% url "polls:results" question.category.slug question.id %}" class="btn btn-primary btn-sm btn-results">Results</a>
+
+                                    {% else %}
+
+                                        <a href="{% url "polls:detail" question.category.slug question.id %}" class="btn btn-primary btn-sm btn-vote-now">Vote Now</a>
+
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
                 {% endfor %}
             </div>
 

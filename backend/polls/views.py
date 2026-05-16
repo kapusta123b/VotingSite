@@ -24,7 +24,7 @@ class MainPollsView(ListView):
         user = self.request.user
         filter_type = self.request.GET.get("filter")
         sort = self.request.GET.get("sort")
-        category = self.request.GET.get('category_slug')
+        category = self.kwargs.get('category_slug')
         search = self.request.GET.get('search')
 
         if filter_type == "user":

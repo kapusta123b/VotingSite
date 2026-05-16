@@ -3,12 +3,5 @@
 
 .venv/
 venv/
-sets/
 
-.env.dev
-.env.prod
-
-Dockerfile
-
-README.md
-LICENSE
+.env

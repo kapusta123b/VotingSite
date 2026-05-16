@@ -107,6 +107,7 @@ class Question(models.Model):
         # if there are no views of this poll in the user's session, add +1 to the views_count field
         if not session.get(session_key):
             self.__class__.objects.filter(pk=self.pk).update(views_count=models.F("views_count") + 1)
+            self.refresh_from_db(fields=['views_count'])
             session[session_key] = True
             return True
         

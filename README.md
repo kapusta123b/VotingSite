@@ -14,12 +14,24 @@
 
 A Django-based voting platform for creating and voting on polls.
 
+## Features
+
+- **Dark Mode Support**: Full support for light and dark themes with a persistent theme switcher.
+- **Responsive Design**: Optimized for mobile, tablet, and desktop screens.
+- **Real-time Results**: Track poll outcomes with dynamic progress bars.
+- **Poll Creation Wizard**: User-friendly multi-step poll creation.
+- **User Profiles**: Track created polls and voting history.
+- **Category Filtering**: Explore polls by interest (IT, Fun, Politics, etc.).
+- **Social Auth**: Login with Google or GitHub.
+- **Email Verification**: Secure registration process with styled confirmation emails.
+
 ## Tech Stack
 
 - **Backend**: Django 6, Gunicorn
 - **Database**: PostgreSQL 16
 - **Frontend**: SASS/SCSS, JavaScript
-- **Auth**: django-allauth (Google, GitHub OAuth)
+- **Auth**: django-allauth (Social OAuth + Email Verification)
+- **Security**: django-recaptcha
 - **Server**: nginx
 - **Deployment**: Docker + Docker Compose
 
@@ -28,22 +40,24 @@ A Django-based voting platform for creating and voting on polls.
 ## Local Development
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/VotingSite.git
+git clone https://github.com/kapusta123b/VotingSite.git
 cd VotingSite
 
-nano backend/.env   # fill in your values
-
+# Setup backend environment
+cp backend/.env.example backend/.env # ensure you fill in correct values
 cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r ../requirements.txt
 
+# Database setup
 python manage.py migrate
 python manage.py loaddata fixtures/user/users.json
 python manage.py loaddata fixtures/polls/polls_Category.json
 python manage.py loaddata fixtures/polls/polls_Question.json
 python manage.py loaddata fixtures/polls/polls_Choice.json
 
+# Run server
 python manage.py runserver
 ```
 
@@ -83,11 +97,11 @@ cd VotingSite
 
 ### 3. Configure environment
 
-Fill in `sets/set_env.sh` with real values and export:
+Fill in `.env` in the root directory and `backend/.env` with real values:
 
 ```bash
-nano sets/set_env.sh
-source sets/set_env.sh
+nano .env
+nano backend/.env
 ```
 
 ### 4. Configure nginx
@@ -177,9 +191,6 @@ VotingSite/
 ├── .env.example
 ├── conf.d/
 │   └── nginx.conf
-├── sets/
-│   ├── set_env.sh       # fill in and source before deploying
-│   └── del_env.sh       # clears exported vars from shell
 └── backend/
     ├── Dockerfile
     ├── entrypoint.sh
@@ -187,8 +198,8 @@ VotingSite/
     ├── polls/
     ├── user/
     ├── main/
-    ├── templates/
-    ├── static/
-    ├── media/
-    └── fixtures/
+    ├── templates/       # Global templates (allauth, base)
+    ├── static/          # Assets (SCSS, JS, Images)
+    ├── media/           # User uploads
+    └── fixtures/        # Seed data
 ```

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const newChoice = document.createElement("div");
       newChoice.className = "choice-item";
       newChoice.innerHTML = `
-                <input required type="text" name="choice" class="form-input" placeholder="Choice ${count + 1}">
+                <input required type="text" name="choices" class="form-input" placeholder="Choice ${count + 1}">
                 <button type="button" class="btn-remove-choice">✕</button>
             `;
       choicesList.appendChild(newChoice);

@@ -8,7 +8,15 @@ class IndexPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["recent_polls"] = Question.objects.all().order_by("-pub_date")[:6]
+
+        context["recent_polls"] = Question.objects.all().order_by("-pub_date")[:6]    
+        context["polls_voted_ids"] = []
+        
+        if self.request.user.is_authenticated:
+            context["polls_voted_ids"] = self.request.user.polls_voted.values_list(
+                "id", flat=True
+            )
+        
         return context
 
 
