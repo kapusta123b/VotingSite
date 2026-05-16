@@ -18,7 +18,6 @@ A Django-based voting platform for creating and voting on polls.
 
 - **Dark Mode Support**: Full support for light and dark themes with a persistent theme switcher.
 - **Responsive Design**: Optimized for mobile, tablet, and desktop screens.
-- **Real-time Results**: Track poll outcomes with dynamic progress bars.
 - **Poll Creation Wizard**: User-friendly multi-step poll creation.
 - **User Profiles**: Track created polls and voting history.
 - **Category Filtering**: Explore polls by interest (IT, Fun, Politics, etc.).
@@ -150,7 +149,7 @@ Configure after the site is running.
 
 1. Open `http://YOUR_DOMAIN/admin` → login `creator1` / `Creator1!`
 2. **Social Accounts → Social Applications → Add**
-3. Add each provider, paste Client ID + Secret, move site to "Chosen sites"
+3. Add each provider, paste Client ID + Secret and Save
 
 ---
 
@@ -164,6 +163,11 @@ Configure after the site is running.
 Change passwords after first login:
 ```bash
 docker compose exec web python manage.py changepassword creator1
+```
+
+Or create new:
+```bash
+docker compose exec web python manage.py createsuperuser
 ```
 
 ---
