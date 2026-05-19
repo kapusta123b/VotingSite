@@ -2,208 +2,330 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.13-blue.svg)
 ![Django Version](https://img.shields.io/badge/django-6.0-green.svg)
+![PostgreSQL](https://img.shields.io/badge/postgresql-16-336791.svg)
+![Docker](https://img.shields.io/badge/docker-supported-2496ED.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+Django-based voting platform for creating, managing, and voting on polls.
+
+The project includes user accounts, poll categories, social authentication, email verification, and Docker-based deployment.
 
 <table>
   <tr>
-    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/7f36c5d3-a8e5-4804-adbb-d0b348156afc" /></td>
-    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/446c2bbe-e058-40c9-94b0-2a94de6cc7b8" /></td>
-    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/8d2edb2c-0b03-4b39-a66b-0e93f634103a" /></td>
+    <td><img width="310" height="150" alt="VotingSite screenshot" src="https://github.com/user-attachments/assets/7f36c5d3-a8e5-4804-adbb-d0b348156afc" /></td>
+    <td><img width="310" height="150" alt="VotingSite screenshot" src="https://github.com/user-attachments/assets/446c2bbe-e058-40c9-94b0-2a94de6cc7b8" /></td>
+    <td><img width="310" height="150" alt="VotingSite screenshot" src="https://github.com/user-attachments/assets/8d2edb2c-0b03-4b39-a66b-0e93f634103a" /></td>
   </tr>
 </table>
 
-A Django-based voting platform for creating and voting on polls.
+<table>
+  <tr>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/4a6aa182-c788-4e01-a4ec-e89c64683c2b" /></td>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/c35f8271-b539-445d-bb1d-f7f52e868128" /></td>
+    <td><img width="310" height="150" alt="image" src="https://github.com/user-attachments/assets/445996bc-ba9c-4ee1-ad4a-1801b613a4bf" /></td>
+  </tr>
+</table>
+
+---
 
 ## Features
 
-- **Dark Mode Support**: Full support for light and dark themes with a persistent theme switcher.
-- **Responsive Design**: Optimized for mobile, tablet, and desktop screens.
-- **Poll Creation Wizard**: User-friendly multi-step poll creation.
-- **User Profiles**: Track created polls and voting history.
-- **Category Filtering**: Explore polls by interest (IT, Fun, Politics, etc.).
-- **Social Auth**: Login with Google or GitHub.
-- **Email Verification**: Secure registration process with styled confirmation emails.
-
-## Tech Stack
-
-- **Backend**: Django 6, Gunicorn
-- **Database**: PostgreSQL 16
-- **Frontend**: SASS/SCSS, JavaScript
-- **Auth**: django-allauth (Social OAuth + Email Verification)
-- **Security**: django-recaptcha
-- **Server**: nginx
-- **Deployment**: Docker + Docker Compose
+- Poll creation
+- Voting system
+- Poll categories
+- User profiles
+- Voting history
+- Dark mode
+- Responsive layout
+- Google and GitHub authentication
+- Email verification
+- reCAPTCHA protection
+- Docker Compose setup
 
 ---
 
-## Local Development
+## Stack
 
-```bash
-git clone https://github.com/kapusta123b/VotingSite.git
-cd VotingSite
-
-# Setup backend environment
-cp backend/.env.example backend/.env # ensure you fill in correct values
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r ../requirements.txt
-
-# Database setup
-python manage.py migrate
-python manage.py loaddata fixtures/user/users.json
-python manage.py loaddata fixtures/polls/polls_Category.json
-python manage.py loaddata fixtures/polls/polls_Question.json
-python manage.py loaddata fixtures/polls/polls_Choice.json
-
-# Run server
-python manage.py runserver
-```
-
-Site available at `http://localhost:8000`
+- Python 3.13
+- Django 6.0
+- PostgreSQL 16
+- Gunicorn
+- Nginx
+- SASS / SCSS
+- JavaScript
+- django-allauth
+- django-recaptcha
+- Docker / Docker Compose
 
 ---
 
-## Deployment
+## Project Structure
 
-### 1. Install Docker on your server
-
-```bash
-sudo apt update && sudo apt upgrade -y
-
-sudo apt install -y ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-  https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-
-sudo usermod -aG docker $USER
-newgrp docker
+```text
+VotingSite
+├── backend
+│   ├── app
+│   ├── polls
+│   ├── user
+│   ├── main
+│   ├── templates
+│   ├── static
+│   ├── media
+│   ├── fixtures
+│   ├── Dockerfile
+│   ├── entrypoint.sh
+│   └── manage.py
+├── conf.d
+│   └── nginx.conf
+├── compose.yml
+├── requirements.txt
+├── .env.example
+└── README.md
 ```
 
-### 2. Clone the repository
+---
+
+## Installation
+
+### Docker
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/kapusta123b/VotingSite.git
 cd VotingSite
 ```
 
-### 3. Configure environment
+Create environment files:
 
-Fill in `.env` in the root directory and `backend/.env` with real values:
+```bash
+cp .env.example .env
+cp backend/.env.example backend/.env
+```
+
+Edit environment variables:
 
 ```bash
 nano .env
 nano backend/.env
 ```
 
-### 4. Configure nginx
+Update Nginx server name:
 
-Set your server IP or domain in `conf.d/nginx.conf`:
+```bash
+nano conf.d/nginx.conf
+```
+
+Example:
 
 ```nginx
-server_name YOUR_SERVER_IP_OR_DOMAIN;
+server_name your_server_ip_or_domain;
 ```
 
-### 5. Launch
+Build and start containers:
 
 ```bash
-sudo docker compose build --no-cache
-sudo docker compose up -d
+docker compose -f compose.yml up -d --build
 ```
 
-Check logs:
+Apply migrations:
+
 ```bash
-sudo docker compose logs -f web
-sudo docker compose logs -f nginx
-sudo docker compose logs -f db
+docker compose -f compose.yml exec web python manage.py migrate
+```
+
+Load demo data (not necessarily ):
+
+```bash
+docker compose -f compose.yml exec web python manage.py loaddata fixtures/user/users.json
+docker compose -f compose.yml exec web python manage.py loaddata fixtures/polls/polls_Category.json
+docker compose -f compose.yml exec web python manage.py loaddata fixtures/polls/polls_Question.json
+docker compose -f compose.yml exec web python manage.py loaddata fixtures/polls/polls_Choice.json
+```
+
+Create admin user:
+
+```bash
+docker compose -f compose.yml exec web python manage.py createsuperuser
 ```
 
 ---
 
-## Social OAuth (Google / GitHub)
+### Manual Installation
 
-Configure after the site is running.
+Use this setup for local development.
 
-#### Google
+Clone the repository:
 
-1. [Google Cloud Console](https://console.cloud.google.com/) → **APIs & Services → Credentials**
-2. Create **OAuth client ID → Web application**
-3. Add Authorized Redirect URI: `http://YOUR_DOMAIN/accounts/google/login/callback/`
-4. Copy Client ID and Secret
+```bash
+git clone https://github.com/kapusta123b/VotingSite.git
+cd VotingSite
+```
 
-#### GitHub
+Create backend environment file:
 
-1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**
-2. Homepage URL: `http://YOUR_DOMAIN`
-3. Callback URL: `http://YOUR_DOMAIN/accounts/github/login/callback/`
-4. Generate Client Secret
+```bash
+cp backend/.env.example backend/.env
+```
 
-#### Add in Django Admin
+Create virtual environment:
 
-1. Open `http://YOUR_DOMAIN/admin` → login `creator1` / `Creator1!`
-2. **Social Accounts → Social Applications → Add**
-3. Add each provider, paste Client ID + Secret and Save
+```bash
+cd backend
+python -m venv .venv
+```
+
+Activate virtual environment:
+
+Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r ../requirements.txt
+```
+
+Apply migrations:
+
+```bash
+python manage.py migrate
+```
+
+Load demo data:
+
+```bash
+python manage.py loaddata fixtures/user/users.json
+python manage.py loaddata fixtures/polls/polls_Category.json
+python manage.py loaddata fixtures/polls/polls_Question.json
+python manage.py loaddata fixtures/polls/polls_Choice.json
+```
+
+Create admin user:
+
+```bash
+python manage.py createsuperuser
+```
+
+Run development server:
+
+```bash
+python manage.py runserver
+```
+
+Site is available at:
+
+```text
+http://localhost:8000
+```
 
 ---
 
-## Default credentials
+## Social Authentication
+
+The project supports Google and GitHub authentication through `django-allauth`.
+
+After deployment, create OAuth applications in Google Cloud Console and GitHub Developer Settings.
+
+Required callback URLs:
+
+```text
+http://your_domain/accounts/google/login/callback/
+http://your_domain/accounts/github/login/callback/
+```
+
+Then add the providers in Django Admin:
+
+```text
+Social Accounts -> Social Applications -> Add
+```
+
+---
+
+## Default Demo Users
 
 | Login | Password | Role |
-|-------|----------|------|
+|---|---|---|
 | `creator1` | `Creator1!` | Superuser |
-| `test_user1` | `TestUser1!` | Regular user |
+| `test_user1` | `TestUser1!` | User |
 
-Change passwords after first login:
-```bash
-sudo docker exec -it votingsite-web-1 python manage.py changepassword creator1
-```
+Change default passwords after first login.
 
-Or create new:
 ```bash
-sudo docker exec -it votingsite-web-1 python manage.py createsuperuser
+docker compose -f compose.yml exec web python manage.py changepassword creator1
 ```
 
 ---
 
-## Useful commands
+## Useful Commands
+
+Start containers:
 
 ```bash
-sudo docker compose down              # stop (data preserved)
-sudo docker compose down -v           # stop + delete database
+docker compose -f compose.yml up -d
+```
 
-sudo docker compose build && docker compose up -d   # rebuild after code changes
+Stop containers:
 
-sudo docker compose exec web python manage.py shell
-sudo docker compose exec db psql -U voting_user -d voting_db
+```bash
+docker compose -f compose.yml down
+```
+
+Stop containers and remove volumes:
+
+```bash
+docker compose -f compose.yml down -v
+```
+
+Rebuild containers:
+
+```bash
+docker compose -f compose.yml up -d --build
+```
+
+View logs:
+
+```bash
+docker compose -f compose.yml logs -f
+```
+
+Open Django shell:
+
+```bash
+docker compose -f compose.yml exec web python manage.py shell
+```
+
+Open PostgreSQL shell:
+
+```bash
+docker compose -f compose.yml exec db psql -U voting_user -d voting_db
 ```
 
 ---
 
-## Project structure
+## Notes
 
-```
-VotingSite/
-├── compose.yml
-├── requirements.txt
-├── .env.example
-├── conf.d/
-│   └── nginx.conf
-└── backend/
-    ├── Dockerfile
-    ├── entrypoint.sh
-    ├── app/
-    ├── polls/
-    ├── user/
-    ├── main/
-    ├── templates/       # Global templates (allauth, base)
-    ├── static/          # Assets (SCSS, JS, Images)
-    ├── media/           # User uploads
-    └── fixtures/        # Seed data
-```
+Before deployment, update:
+
+- `.env`
+- `backend/.env`
+- Nginx `server_name`
+- OAuth credentials
+- default demo user passwords
+
+Do not commit real secrets or production credentials to the repository.
+
+---
+
+## License
+
+MIT
