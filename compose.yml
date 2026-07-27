@@ -71,6 +71,19 @@ services:
     depends_on:
       - web
 
+  # if you want database managment in your website
+  # adminer:
+  #   image: adminer:5.5.0
+
+  #   ports:
+  #     - 8080:8080
+
+  #   restart: unless-stopped
+
+  #   depends_on:
+  #     - db
+
+
 volumes:
   data:
   static_volume:

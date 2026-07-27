@@ -198,7 +198,7 @@ pip install -r ../requirements.txt
 Apply migrations:
 
 ```bash
-python manage.py migrate
+python manage.py migrate # very important!
 ```
 
 Load demo data:
