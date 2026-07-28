@@ -5,3 +5,7 @@
 venv/
 
 .env
+
+media/
+
+staticfiles/
