@@ -8,8 +8,10 @@ services:
 
     expose:
       - 8000
-
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120 --reload
+    
+    # How is the number of workers calculated for gunicorn?
+    # Number of workers = (2 × CPU cores) + 1
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 25 --timeout 120
 
     environment:
       - SECRET_KEY
@@ -27,13 +29,11 @@ services:
       - EMAIL_APP_PASSWORD
 
     volumes:
-      - ./backend:/app
       - static_volume:/app/staticfiles
 
     restart: unless-stopped
 
     depends_on:
-    
       db:
         condition: service_healthy
 
