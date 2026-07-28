@@ -79,7 +79,7 @@ VotingSite
 │   └── nginx.conf
 ├── compose.yml
 ├── requirements.txt
-├── .env.example
+├── .env
 └── README.md
 ```
 
@@ -131,10 +131,10 @@ docker compose -f compose.yml up -d --build
 Apply migrations:
 
 ```bash
-docker compose -f compose.yml exec web python manage.py migrate
+docker exec votingsite-web-1 python manage.py migrate
 ```
 
-Load demo data (not necessarily ):
+Load demo data ( not necessarily ):
 
 ```bash
 docker compose -f compose.yml exec web python manage.py loaddata fixtures/user/users.json
@@ -151,7 +151,7 @@ docker compose -f compose.yml exec web python manage.py createsuperuser
 
 ---
 
-### Manual Installation
+### Manual Installation only for DEV
 
 Use this setup for local development.
 
@@ -261,7 +261,7 @@ Social Accounts -> Social Applications -> Add
 Change default passwords after first login.
 
 ```bash
-docker compose -f compose.yml exec web python manage.py changepassword creator1
+docker exec votingsite-web-1 python manage.py changepassword creator1
 ```
 
 ---
@@ -271,43 +271,43 @@ docker compose -f compose.yml exec web python manage.py changepassword creator1
 Start containers:
 
 ```bash
-docker compose -f compose.yml up -d
+docker compose compose.yml up -d
 ```
 
 Stop containers:
 
 ```bash
-docker compose -f compose.yml down
+docker compose compose.yml down
 ```
 
 Stop containers and remove volumes:
 
 ```bash
-docker compose -f compose.yml down -v
+docker compose compose.yml down -v
 ```
 
 Rebuild containers:
 
 ```bash
-docker compose -f compose.yml up -d --build
+docker compose compose.yml up -d --build
 ```
 
 View logs:
 
 ```bash
-docker compose -f compose.yml logs -f
+docker compose compose.yml logs -f
 ```
 
 Open Django shell:
 
 ```bash
-docker compose -f compose.yml exec web python manage.py shell
+docker exec votingsite-web-1 python manage.py shell
 ```
 
 Open PostgreSQL shell:
 
 ```bash
-docker compose -f compose.yml exec db psql -U voting_user -d voting_db
+docker exec votingsite-db-1 psql -U voting_user -d voting_db
 ```
 
 ---
