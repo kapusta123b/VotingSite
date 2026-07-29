@@ -1,12 +1,11 @@
 #!/bin/sh
 set -e
 
-while ! nc -z db ${DB_PORT:-5432}; do
-  sleep 0.5
-done
+echo "PostgreSQL is ready!"
 
-echo "PostgreSQL started"
-
+echo "Applying database migrations..."
+python manage.py migrate --noinput
+  
 python manage.py compilescss
 python manage.py collectstatic --noinput
 
