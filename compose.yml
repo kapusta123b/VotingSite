@@ -1,17 +1,23 @@
 services:
   web:
+    
     build:
       context: .
       dockerfile: backend/Dockerfile
 
-    image: web:1.0.0
+    container_name: voting-web
+
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
 
     expose:
       - 8000
-    
-    # How is the number of workers calculated for gunicorn?
-    # Number of workers = (2 × CPU cores) + 1
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 25 --timeout 120
+
+    volumes:
+      - static_volume:/app/staticfiles
 
     environment:
       - SECRET_KEY
@@ -28,21 +34,19 @@ services:
       - EMAIL_NAME
       - EMAIL_APP_PASSWORD
 
-    volumes:
-      - static_volume:/app/staticfiles
-
-    restart: unless-stopped
-
-    depends_on:
-      db:
-        condition: service_healthy
+    # How is the number of workers calculated for gunicorn?
+    # Number of workers = (2 × CPU cores) + 1
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 5 --timeout 120
 
   db:
-    image: postgres:16-bookworm
-    volumes:
-      - data:/var/lib/postgresql/data/
+    image: postgres:18.4
+
+    container_name: voting-db
 
     restart: unless-stopped
+    
+    volumes:
+      - data:/var/lib/postgresql/
 
     environment:
       - POSTGRES_USER=${DB_USER}
@@ -50,7 +54,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      test: [ "CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -58,19 +62,19 @@ services:
   nginx:
     image: nginx:alpine-slim
 
-    volumes:
-      - ./conf.d:/etc/nginx/conf.d
-      - static_volume:/app/staticfiles
-      - ./backend/media:/app/media
-
-    ports:
-      - 80:80
+    container_name: voting-nginx
 
     restart: unless-stopped
 
     depends_on:
       - web
 
+    ports:
+      - 80:80
+
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - static_volume:/app/staticfiles
   # if you want database managment in your website
   # adminer:
   #   image: adminer:5.5.0
@@ -82,7 +86,6 @@ services:
 
   #   depends_on:
   #     - db
-
 
 volumes:
   data:
