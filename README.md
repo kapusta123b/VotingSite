@@ -89,6 +89,8 @@ VotingSite
 
 ### Docker
 
+Install Docker: https://docs.docker.com/engine/install/
+
 Clone the repository:
 
 ```bash
@@ -96,18 +98,10 @@ git clone https://github.com/kapusta123b/VotingSite.git
 cd VotingSite
 ```
 
-Create environment files:
-
-```bash
-cp .env.example .env
-cp backend/.env.example backend/.env
-```
-
 Edit environment variables:
 
 ```bash
 nano .env
-nano backend/.env
 ```
 
 Update Nginx server name:
@@ -125,28 +119,28 @@ server_name your_server_ip_or_domain;
 Build and start containers:
 
 ```bash
-docker compose -f compose.yml up -d --build
+docker compose up -d --build
 ```
 
 Apply migrations:
 
 ```bash
-docker exec votingsite-web-1 python manage.py migrate
+docker exec voting-web python manage.py migrate
 ```
 
-Load demo data ( not necessarily ):
+Load demo data ( optional ):
 
 ```bash
-docker compose -f compose.yml exec web python manage.py loaddata fixtures/user/users.json
-docker compose -f compose.yml exec web python manage.py loaddata fixtures/polls/polls_Category.json
-docker compose -f compose.yml exec web python manage.py loaddata fixtures/polls/polls_Question.json
-docker compose -f compose.yml exec web python manage.py loaddata fixtures/polls/polls_Choice.json
+docker exec voting-web python manage.py loaddata fixtures/user/users.json
+docker exec voting-web python manage.py loaddata fixtures/polls/polls_Category.json
+docker exec voting-web python manage.py loaddata fixtures/polls/polls_Question.json
+docker exec voting-web python manage.py loaddata fixtures/polls/polls_Choice.json
 ```
 
-Create admin user:
+Create admin user ( optional ):
 
 ```bash
-docker compose -f compose.yml exec web python manage.py createsuperuser
+docker exec voting-web python manage.py createsuperuser
 ```
 
 ---
@@ -160,12 +154,6 @@ Clone the repository:
 ```bash
 git clone https://github.com/kapusta123b/VotingSite.git
 cd VotingSite
-```
-
-Create backend environment file:
-
-```bash
-cp backend/.env.example backend/.env
 ```
 
 Create virtual environment:
@@ -192,16 +180,27 @@ Windows:
 Install dependencies:
 
 ```bash
-pip install -r ../requirements.txt
+pip install -r --no-cache-dir requirements.txt
+```
+
+Install PostgreSQL, create a user and a database, https://www.postgresql.org/download/,
+and then replace the values ​​in the backend/.env file with your own.
+```env
+# replace values with your own
+DB_NAME=voting_db
+DB_USER=voting_user
+DB_PASS=voting_pass # user password
+DB_HOST=localhost # don't touch
+DB_PORT=5432 # don't touch
 ```
 
 Apply migrations:
 
 ```bash
-python manage.py migrate # very important!
+python manage.py migrate # important!
 ```
 
-Load demo data:
+Load demo data ( optional ):
 
 ```bash
 python manage.py loaddata fixtures/user/users.json
@@ -227,6 +226,11 @@ Site is available at:
 ```text
 http://localhost:8000
 ```
+Admin panel available at:
+```text
+http://localhost:8000/admin
+```
+Log in as a superuser using the username and password created earlier
 
 ---
 
@@ -247,21 +251,6 @@ Then add the providers in Django Admin:
 
 ```text
 Social Accounts -> Social Applications -> Add
-```
-
----
-
-## Default Demo Users
-
-| Login | Password | Role |
-|---|---|---|
-| `creator1` | `Creator1!` | Superuser |
-| `test_user1` | `TestUser1!` | User |
-
-Change default passwords after first login.
-
-```bash
-docker exec votingsite-web-1 python manage.py changepassword creator1
 ```
 
 ---
@@ -317,10 +306,8 @@ docker exec votingsite-db-1 psql -U voting_user -d voting_db
 Before deployment, update:
 
 - `.env`
-- `backend/.env`
 - Nginx `server_name`
 - OAuth credentials
-- default demo user passwords
 
 Do not commit real secrets or production credentials to the repository.
 
